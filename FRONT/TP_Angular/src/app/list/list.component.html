@@ -1,0 +1,15 @@
+<p>Liste des monstres</p>
+@for (monstres of dataList; track monstres.id){
+    <ul class="list-group">
+        <li class="list-group-item">
+            <span class="badge rounded-pill bg-info text-dark">
+                {{monstres.id}}
+            </span>
+            <p>{{monstres.name | uppercase}}</p>
+            <a [routerLink]="['/entry', monstres.id]" routerLinkActive="active">
+                <img [src]="monstres.image" alt="{{ monstres.name }}" class="card-img-top" style="max-width: 10%;">      
+            </a>
+        </li>
+    </ul>
+}
+
