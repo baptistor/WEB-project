@@ -1,10 +1,11 @@
-import { Controller, Get, Post,Param, Body, Put, Delete, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post,Param, Body, Put, Delete, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { User } from './users.entity';
 import { UsersService } from './users.service';
 import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 
 
 import { ApiProperty } from "@nestjs/swagger";
+import { AuthGuard } from '@nestjs/passport';
 
 export class UserInput {
 
@@ -47,7 +48,8 @@ export class UsersController {
     constructor(
         private services: UsersService
     ) {}
-
+    
+    @UseGuards(AuthGuard('jwt'))
     @Get()
     async getAll(): Promise<User[]> {
         return this.services.getAll();
@@ -73,7 +75,15 @@ export class UsersController {
         description: 'Utilisateur bien mis a jour'
     })
     async update(@Body() input: any, @Param() parameter): Promise<User>{
-        return this.services.update(input.lastname, input.firstname, input.age, parameter.id)
+        return this.services.update(input.lastname, input.firstname, input.age, input.password , parameter.id);
+    }
+
+    @Put('pwd/:id')
+    @ApiCreatedResponse({
+        description: 'Mot de passe bien mis a jour'
+    })
+    async updatepwd(@Body() input: any, @Param() parameter): Promise<User>{
+        return this.services.updatePwdById(parameter.id, input.oldid, input.newid);
     }
 
 
