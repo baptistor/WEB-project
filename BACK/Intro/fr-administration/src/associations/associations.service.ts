@@ -85,7 +85,7 @@ export class AssociationsService {
           if (!association) {
             throw new Error(`Association avec ID ${id} introuvable`);
           }
-      
-          return association.users; 
+          
+          return (await this.repository.findOneBy({id})).users; 
     }
 }

@@ -2,8 +2,6 @@ import { Controller, Get, Post,Param, Body, Put, Delete, HttpException, HttpStat
 import { User } from './users.entity';
 import { UsersService } from './users.service';
 import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
-
-
 import { ApiProperty } from "@nestjs/swagger";
 import { AuthGuard } from '@nestjs/passport';
 
