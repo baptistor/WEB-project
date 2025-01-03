@@ -19,6 +19,7 @@ const associations_entity_1 = require("./associations/associations.entity");
 const roles_entity_1 = require("./roles/roles.entity");
 const minute_module_1 = require("./minute/minute.module");
 const minute_entity_1 = require("./minute/minute.entity");
+const auth_module_1 = require("./auth/auth.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -29,7 +30,7 @@ exports.AppModule = AppModule = __decorate([
                 database: 'mydatabase.db',
                 entities: [users_entity_1.User, associations_entity_1.Association, roles_entity_1.Role, minute_entity_1.Minute],
                 synchronize: true,
-            }), users_module_1.UsersModule, associations_module_1.AssociationsModule, roles_module_1.RolesModule, minute_module_1.MinuteModule],
+            }), users_module_1.UsersModule, associations_module_1.AssociationsModule, roles_module_1.RolesModule, minute_module_1.MinuteModule, auth_module_1.AuthModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

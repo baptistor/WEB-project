@@ -5,6 +5,7 @@ export declare class UserInput {
     name: string;
     firstname: string;
     age: number;
+    password: string;
 }
 export declare class UsersController {
     private services;

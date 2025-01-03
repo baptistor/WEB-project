@@ -4,6 +4,7 @@ export declare class User {
     name: string;
     firstname: string;
     age: number;
+    password: string;
     roles: Role[];
     constructor(name: string, firstname: string, age: number);
 }

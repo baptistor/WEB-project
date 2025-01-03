@@ -44,6 +44,14 @@ __decorate([
     }),
     __metadata("design:type", Number)
 ], UserInput.prototype, "age", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Mot de passe de l utilisateur',
+        example: "mdp1234",
+        type: String,
+    }),
+    __metadata("design:type", String)
+], UserInput.prototype, "password", void 0);
 let UsersController = class UsersController {
     constructor(services) {
         this.services = services;
@@ -66,7 +74,7 @@ let UsersController = class UsersController {
         return user;
     }
     async create(input) {
-        const user = await this.services.create(input.name, input.firstname, input.age);
+        const user = await this.services.create(input.name, input.firstname, input.age, input.password);
         if (!user) {
             throw new common_1.HttpException(`Manque un ou plusieurs paramètres pour créer l'utilisateur`, common_1.HttpStatus.NOT_FOUND);
         }

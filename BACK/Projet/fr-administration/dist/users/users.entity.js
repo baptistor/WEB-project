@@ -37,6 +37,10 @@ __decorate([
     __metadata("design:type", Number)
 ], User.prototype, "age", void 0);
 __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], User.prototype, "password", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => roles_entity_1.Role, role => role.user),
     __metadata("design:type", Array)
 ], User.prototype, "roles", void 0);

@@ -34,9 +34,9 @@ let UsersService = class UsersService {
         const id = +paramId;
         return await this.rolesRepository.find({ where: { idUser: paramId } });
     }
-    async create(name, firstname, age) {
+    async create(name, firstname, age, password) {
         if (firstname !== undefined && name !== undefined && age !== undefined) {
-            const user = this.repository.create({ name, firstname, age });
+            const user = this.repository.create({ name, firstname, age, password });
             return await this.repository.save(user);
         }
         return null;

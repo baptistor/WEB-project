@@ -10,7 +10,9 @@ export class User{
     @Column()
     public firstname: string;
     @Column()
-    public age: number
+    public age: number;
+    @Column()
+    public password: string;
     
     @OneToMany(() => Role, role => role.user)
     roles: Role[];

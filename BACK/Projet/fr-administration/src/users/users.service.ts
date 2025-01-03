@@ -29,9 +29,9 @@ export class UsersService {
 
     }
 
-    async create(name: string, firstname: string, age: number): Promise<User> {
+    async create(name: string, firstname: string, age: number, password: string): Promise<User> {
         if (firstname !== undefined && name !== undefined && age !== undefined) {
-            const user = this.repository.create({name, firstname, age})
+            const user = this.repository.create({name, firstname, age, password})
             return await this.repository.save(user);
         }
         return null

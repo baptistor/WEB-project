@@ -8,7 +8,7 @@ export declare class UsersService {
     getAll(): Promise<User[]>;
     getById(paramId: number): Promise<User>;
     getAllRolesById(paramId: number): Promise<Role[]>;
-    create(name: string, firstname: string, age: number): Promise<User>;
+    create(name: string, firstname: string, age: number, password: string): Promise<User>;
     update(name: string, firstname: string, age: number, paramId: number): Promise<User>;
     delete(paramId: number): Promise<Boolean>;
 }

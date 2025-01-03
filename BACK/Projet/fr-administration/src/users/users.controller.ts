@@ -29,6 +29,13 @@ export class UserInput {
         type: Number,
     })
     public age: number;
+
+    @ApiProperty({
+        description: 'Mot de passe de l utilisateur',
+        example: "mdp1234",
+        type: String,
+    })
+    public password: string;
 }
 
 
@@ -66,7 +73,7 @@ export class UsersController {
         description: 'Utilisateur créé.'
     })
     public async create(@Body() input: UserInput): Promise<User> {
-        const user = await this.services.create(input.name, input.firstname, input.age);
+        const user = await this.services.create(input.name, input.firstname, input.age, input.password);
         if (!user) {
             throw new HttpException(`Manque un ou plusieurs paramètres pour créer l'utilisateur`, HttpStatus.NOT_FOUND)  ;      
         }
