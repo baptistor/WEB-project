@@ -20,4 +20,7 @@ export class NavComponent {
     this.token.clear();
     this.router.navigateByUrl("/login");
   }
+  profile(): void {
+    this.router.navigateByUrl('/profile');
+  }
 }
