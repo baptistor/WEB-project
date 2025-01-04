@@ -79,8 +79,6 @@ export class UsersController {
         }
         return user;
     }
-
-
     @Put(':id')
     @ApiCreatedResponse({
         description: 'Utilisateur mis a jour'
