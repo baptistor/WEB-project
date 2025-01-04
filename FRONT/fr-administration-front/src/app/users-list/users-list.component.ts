@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { lastValueFrom, Observable } from 'rxjs';
+import { NavComponent } from "../nav/nav.component";
 
 @Component({
   selector: 'app-users-list',
-  imports: [MatTableModule],
+  imports: [MatTableModule, NavComponent],
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.css'
 })
