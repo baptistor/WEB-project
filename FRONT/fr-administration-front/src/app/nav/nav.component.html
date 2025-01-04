@@ -3,6 +3,6 @@
         <a (click)="logout()"><button>Logout</button></a>
     </div>
     <div>
-        <a (click)="profile()"><button>Profile</button></a>
+        <a (click)="profile()"><button ng-if="isLogged">Profile</button></a>
     </div>        
 </nav>  

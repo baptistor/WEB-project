@@ -10,14 +10,14 @@ import { Router } from '@angular/router';
 })
 export class NavComponent {
   isLogged : boolean;
-  constructor(private token : TokenStorageService,
+  constructor(private service : TokenStorageService,
     private router: Router){
-    this.isLogged = this.token.isLogged();
+    this.isLogged = this.service.isLogged();
   }
 
   logout(): void {
     console.log("click on logout !");
-    this.token.clear();
+    this.service.clear();
     this.router.navigateByUrl("/login");
   }
   profile(): void {

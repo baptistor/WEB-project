@@ -1,1 +1,10 @@
-<p>profile works!</p>
+<app-nav></app-nav>
+<div>
+    <h2>Profil de {{ user.firstname }} {{ user.name }}</h2>
+    <ul>
+        <li><strong>ID :</strong> {{ user.id }}</li>
+        <li><strong>Nom :</strong> {{ user.name }}</li>
+        <li><strong>Prénom :</strong> {{ user.firstname }}</li>
+        <li><strong>Âge :</strong> {{ user.age }}</li>
+    </ul>
+</div>
