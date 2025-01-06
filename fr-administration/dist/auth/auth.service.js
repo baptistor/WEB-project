@@ -22,9 +22,7 @@ let AuthService = class AuthService {
     async validateUser(id, password) {
         const user = await this.services.getById(id);
         const hash = user.password;
-        console.log(hash);
         if (await bcrypt.compare(password, hash)) {
-            console.log("dedans");
             return user;
         }
         return null;
