@@ -1,0 +1,101 @@
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# FRONT
+# Compiled output
+/fr-administration-front/dist
+/fr-administration-front/tmp
+/fr-administration-front/out-tsc
+/fr-administration-front/bazel-out
+
+# Node
+/fr-administration-front/node_modules
+/fr-administration-front/npm-debug.log
+/fr-administration-front/yarn-error.log
+
+# IDEs and editors
+/fr-administration-front/.idea/
+/fr-administration-front/.project
+/fr-administration-front/.classpath
+/fr-administration-front/.c9/
+/fr-administration-front/*.launch
+/fr-administration-front/.settings/
+/fr-administration-front/*.sublime-workspace
+
+# Visual Studio Code
+/fr-administration-front/.vscode/*
+!/fr-administration-front/.vscode/settings.json
+!/fr-administration-front/.vscode/tasks.json
+!/fr-administration-front/.vscode/launch.json
+!/fr-administration-front/.vscode/extensions.json
+/fr-administration-front/.history/*
+
+# Miscellaneous
+/fr-administration-front/.angular/cache
+/fr-administration-front/.sass-cache/
+/fr-administration-front/connect.lock
+/fr-administration-front/coverage
+/fr-administration-front/libpeerconnection.log
+/fr-administration-front/testem.log
+/fr-administration-front/typings
+
+# System files
+/fr-administration-front/.DS_Store
+/fr-administration-front/Thumbs.db
+
+#BACK
+
+# compiled output
+/fr-administration/dist
+/fr-administration/node_modules
+/fr-administration/build
+
+# Logs
+/fr-administration/logs
+/fr-administration/*.log
+/fr-administration/npm-debug.log*
+/fr-administration/pnpm-debug.log*
+/fr-administration/yarn-debug.log*
+/fr-administration/yarn-error.log*
+/fr-administration/lerna-debug.log*
+
+# OS
+/fr-administration/.DS_Store
+
+# Tests
+/fr-administration/coverage
+/fr-administration/.nyc_output
+
+# IDEs and editors
+/fr-administration/.idea
+/fr-administration/.project
+/fr-administration/.classpath
+/fr-administration/.c9/
+/fr-administration/*.launch
+/fr-administration/.settings/
+/fr-administration/*.sublime-workspace
+
+# IDE - VSCode
+/fr-administration/.vscode/*
+!/fr-administration/.vscode/settings.json
+!/fr-administration/.vscode/tasks.json
+!/fr-administration/.vscode/launch.json
+!/fr-administration/.vscode/extensions.json
+
+# dotenv environment variable files
+/fr-administration/.env
+/fr-administration/.env.development.local
+/fr-administration/.env.test.local
+/fr-administration/.env.production.local
+/fr-administration/.env.local
+
+# temp directory
+/fr-administration/.temp
+/fr-administration/.tmp
+
+# Runtime data
+/fr-administration/pids
+/fr-administration/*.pid
+/fr-administration/*.seed
+/fr-administration/*.pid.lock
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+fr-administration/report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
