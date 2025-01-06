@@ -1,4 +1,4 @@
-<form *ngIf ="user">
+<form *ngIf ="user" (submit)="submit($event)">
     <label>Last name: (laisser vide pour ne pas modifier) </label>
     <input type="text" id="lastname" placeholder="{{user.lastname}}">
     <br>
@@ -12,6 +12,9 @@
     <input type="password" id="pswd">
     <br>
 
-    <a (click)="submit()"><button>Submit</button></a>
+    <button type="submit">Save</button>
     <a (click)="cancel()"><button>Cancel</button></a>
+    <div *ngIf ="error_pswd">
+      Mot de passe invalide
+    </div>
   </form>
