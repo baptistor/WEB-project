@@ -23,7 +23,7 @@ export class AssociationsService {
         return new AssociationDTO(association.name, members);
     }
     async getAll():Promise<AssociationDTO[]>{
-        const s = await this.repository.find();
+        const s = await this.repository.find({ relations: ['users'] });
         return Promise.all(s.map(asso=>this.toAssociationDTO(asso)));
     }
     async getById(id): Promise<AssociationDTO>{
@@ -33,6 +33,7 @@ export class AssociationsService {
     async create(idUsers : number[], name : string): Promise<AssociationDTO>{
         const users = await this.userRepository.find({where: {id: In(idUsers)}});
         if (users.length !== idUsers.length){
+            console.log(users);
             return undefined;
         }
         const newAssociation = await this.repository.create({
