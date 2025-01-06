@@ -11,12 +11,12 @@ export class AuthService {
     public async validateUser(id: number, password: string) : Promise<User> {
         const user = await this.services.getById(id);
         const hash = user.password;
-        if(bcrypt.compare(password, hash)){
+        console.log(hash);
+        if(await bcrypt.compare(password, hash)){
+            console.log("dedans")
             return user
         }
-        else{
-            undefined
-        }
+        return null
     }
     async login(user: any) {
         const payload = { username: user.id };
