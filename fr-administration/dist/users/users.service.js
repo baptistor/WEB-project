@@ -50,16 +50,16 @@ let UsersService = class UsersService {
         if (!u) {
             return undefined;
         }
-        if (firstname !== undefined) {
+        if (firstname !== undefined && firstname !== "") {
             u.firstname = firstname;
         }
-        if (lastname !== undefined) {
+        if (lastname !== undefined && lastname !== "") {
             u.lastname = lastname;
         }
         if (age !== undefined) {
             u.age = age;
         }
-        if (password !== undefined) {
+        if (password !== undefined && password !== "") {
             const saltOrRounds = 10;
             const hash = await bcrypt.hash(password, saltOrRounds);
             u.password = hash;

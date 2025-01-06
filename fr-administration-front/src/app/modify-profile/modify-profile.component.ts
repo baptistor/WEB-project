@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { TokenStorageService } from '../services/token-storage.service';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { delay, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ApiHelperService } from '../services/api-helper.service';
 
@@ -28,11 +26,14 @@ export class ModifyProfileComponent {
       this.user = response.body} });
   }
   submit(): void {
-    const name: string = (document.getElementById('name') as HTMLInputElement).value;
+    const old_password:string = (document.getElementById('pswd') as HTMLInputElement).value;
+    const name: string = (document.getElementById('lastname') as HTMLInputElement).value;
     const firstname: string = (document.getElementById('firstname') as HTMLInputElement).value;
+    const password:string = (document.getElementById('new_pswd') as HTMLInputElement).value;
     const updatedUser = {
       "lastname": name,
-      "firstname": firstname
+      "firstname": firstname,
+      "password": password
     }
     this.api.put({ endpoint: `/users/${this.id}`, data: updatedUser }).subscribe()
     this.router.navigateByUrl('/profile')
