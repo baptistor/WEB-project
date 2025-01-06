@@ -1,0 +1,17 @@
+<form *ngIf ="user">
+    <label>Last name: (laisser vide pour ne pas modifier) </label>
+    <input type="text" id="lastname" placeholder="{{user.lastname}}">
+    <br>
+    <label>First name : (laisser vide pour ne pas modifier) </label>
+    <input type="text" id="firstname" placeholder="{{user.firstname}}">
+    <br>
+    <label>New password : (laisser vide pour ne pas modifier) </label>
+    <input type="password" id="new_pswd">
+    <br>
+    <label>Old password* :</label>
+    <input type="password" id="pswd">
+    <br>
+
+    <a (click)="submit()"><button>Submit</button></a>
+    <a (click)="cancel()"><button>Cancel</button></a>
+  </form>
