@@ -16,18 +16,18 @@ export class AssociationsService {
         private userRepository: Repository<User>
     ) {}
     private async toAssociationDTO(association: Association): Promise<AssociationDTO> {
-        const members: Member[] = association.users.map(user => {
+            const members: Member[] = (association.users ?? []).map(user => {
             const role = user.roles?.find(role => role.association?.id === association.id);
             return new Member(user.lastname,user.firstname, user.age, role?.name || undefined,);
         });
         return new AssociationDTO(association.name, members);
     }
     async getAll():Promise<AssociationDTO[]>{
-        const s = await this.repository.find({ relations: ['users'] });
+        const s = await this.repository.find({relations: ['users']});
         return Promise.all(s.map(asso=>this.toAssociationDTO(asso)));
     }
     async getById(id): Promise<AssociationDTO>{
-        const s = await this.repository.findOne({where: {id: Equal(id)}});
+        const s = await this.repository.findOne({where: {id: Equal(id)}, relations: ['users']});
         return await this.toAssociationDTO(s); 
     }
     async create(idUsers : number[], name : string): Promise<AssociationDTO>{
@@ -58,7 +58,7 @@ export class AssociationsService {
         if (name !== undefined ){
             s.name = name;
         }
-        await this.repository.save(s);
+        this.repository.save(s);
         return await this.toAssociationDTO(s); 
     }
     async delete(id:number): Promise<AssociationDTO>{
