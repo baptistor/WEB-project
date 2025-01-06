@@ -1,13 +1,20 @@
-<form *ngIf ="user">
-    <label>Last name:</label>
-    <input type="text" id="name" placeholder="{{user.lastname}}">
+<form *ngIf ="user" (submit)="submit($event)">
+    <label>Last name: (laisser vide pour ne pas modifier) </label>
+    <input type="text" id="lastname" placeholder="{{user.lastname}}">
     <br>
-    <label>First name :</label>
+    <label>First name : (laisser vide pour ne pas modifier) </label>
     <input type="text" id="firstname" placeholder="{{user.firstname}}">
     <br>
-    <label>Age :</label>
-    <input type="number" id="age" placeholder="{{user.age}}">
+    <label>New password : (laisser vide pour ne pas modifier) </label>
+    <input type="password" id="new_pswd">
     <br>
-    <a (click)="submit()"><button>Submit</button></a>
+    <label>Old password* :</label>
+    <input type="password" id="pswd">
+    <br>
+
+    <button type="submit">Save</button>
     <a (click)="cancel()"><button>Cancel</button></a>
+    <div *ngIf ="error_pswd">
+      Mot de passe invalide
+    </div>
   </form>

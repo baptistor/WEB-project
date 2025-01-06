@@ -33,6 +33,7 @@ export class AssociationsService {
     async create(idUsers : number[], name : string): Promise<AssociationDTO>{
         const users = await this.userRepository.find({where: {id: In(idUsers)}});
         if (users.length !== idUsers.length){
+            console.log(users);
             return undefined;
         }
         const newAssociation = await this.repository.create({
