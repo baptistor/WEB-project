@@ -43,6 +43,7 @@
 
 #BACK
 
+/fr-administration/*.db
 # compiled output
 /fr-administration/dist
 /fr-administration/node_modules
