@@ -21,12 +21,26 @@ export class LoginComponent {
   login(): void {
     const username: string = (document.getElementById('username') as HTMLInputElement).value;
     const password: string = (document.getElementById('password') as HTMLInputElement).value;
-    this.api.post({endpoint: '/auth/login', data: { username, password }}).subscribe(response => this.tokenStorageService.save(response.access_token,username));
-    if(this.tokenStorageService.isLogged()){
-      this.router.navigateByUrl('/users');
-    }
-    else{
-      this.authentificationDenied=true;
-    }
+    this.api.post({endpoint: '/auth/login', data: { username, password }}).subscribe({
+      next: (response) => {
+        console.log("Réponse reçue : ", response);
+  
+        if (response) {
+          this.tokenStorageService.save(response.access_token, username);
+
+          if(this.tokenStorageService.isLogged()){
+            this.router.navigateByUrl('/users');
+          }
+          else{
+            this.authentificationDenied=true;
+          }
+          
+        } else {
+          console.error("Réponse invalide");
+        }
+      }}
+    )
+
+
   }
 }
