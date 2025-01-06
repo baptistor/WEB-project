@@ -21,7 +21,7 @@ export class LoginComponent {
   login(): void {
     const username: string = (document.getElementById('username') as HTMLInputElement).value;
     const password: string = (document.getElementById('password') as HTMLInputElement).value;
-    this.api.post({endpoint: '/auth/login', data: { username, password }}).then(response => this.tokenStorageService.save(response.access_token,username));
+    this.api.post({endpoint: '/auth/login', data: { username, password }}).subscribe(response => this.tokenStorageService.save(response.access_token,username));
     if(this.tokenStorageService.isLogged()){
       this.router.navigateByUrl('/users');
     }

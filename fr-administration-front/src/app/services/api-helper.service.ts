@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable, lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { R } from '@angular/cdk/keycodes';
 
 
 @Injectable({
@@ -17,7 +18,7 @@ export class ApiHelperService {
   }: {
     endpoint: string;
     queryParams?: any;
-  }): Promise<any> {environment
+  }): Observable<any> {environment
     return this.request({ endpoint, method: 'GET', queryParams });
   }
 
@@ -29,7 +30,7 @@ export class ApiHelperService {
     endpoint: string;
     data?: any;
     queryParams?: any;
-  }): Promise<any> {
+  }): Observable<any> {
     return this.request({ endpoint, method: 'POST', data, queryParams });
   }
 
@@ -41,7 +42,7 @@ export class ApiHelperService {
     endpoint: string;
     data?: any;
     queryParams?: any;
-  }): Promise<any> {
+  }): Observable<any> {
     return this.request({ endpoint, method: 'PUT', data, queryParams });
   }
 
@@ -53,11 +54,11 @@ export class ApiHelperService {
     endpoint: string;
     data?: any;
     queryParams?: any;
-  }): Promise<any> {
+  }): Observable<any> {
     return this.request({ endpoint, method: 'DELETE', data, queryParams });
   }
 
-  public async request({
+  public request({
     endpoint,
     method = 'GET',
     data = {},
@@ -67,7 +68,7 @@ export class ApiHelperService {
     method?: string;
     data?: object;
     queryParams?: any;
-  }): Promise<any> {
+  }): Observable<any> {
     const methodWanted = method.toLowerCase();
 
     const url = this.base_url + endpoint;
@@ -76,7 +77,12 @@ export class ApiHelperService {
       params: queryParams,
     };
 
-    console.log(method, url, JSON.stringify(requestOptions), JSON.stringify(data));
+    console.log(
+      method,
+      url,
+      JSON.stringify(requestOptions),
+      JSON.stringify(data),
+    );
 
     let req: Observable<any>;
     if (methodWanted === 'get') {
@@ -99,9 +105,7 @@ export class ApiHelperService {
       throw new Error(`error calling ${url} with method ${methodWanted}`);
     }
 
-    return await lastValueFrom(req).then((res) => {
-      return res.body;
-    });
+    return req;
   }
 }
 

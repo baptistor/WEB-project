@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { TokenStorageService } from '../services/token-storage.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { FormsModule} from '@angular/forms';
+import { delay, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { ApiHelperService } from '../services/api-helper.service';
 
 @Component({
   selector: 'app-modify-profile',
@@ -17,14 +17,13 @@ export class ModifyProfileComponent {
   id : string;
   constructor(
     private service : TokenStorageService,
-    private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private api:ApiHelperService
   ){
     this.id = this.service.getId();
   }
   ngOnInit(): void {
-    const request: Observable<any> = this.http.get(`http://localhost:3000/users/${this.id}`, { observe: 'response' });
-    request.subscribe({ next : (response) => {
+    this.api.get({endpoint: `/users/${this.id}`}).subscribe({ next : (response) => {
       console.log('Réponse reçue :', response.body);
       this.user = response.body} });
   }
@@ -32,23 +31,13 @@ export class ModifyProfileComponent {
     const name: string = (document.getElementById('name') as HTMLInputElement).value;
     const firstname: string = (document.getElementById('firstname') as HTMLInputElement).value;
     const updatedUser = {
-      "name": name,
+      "lastname": name,
       "firstname": firstname
     }
-    console.log(updatedUser);
-    this.http.put(`http://localhost:3000/users/${this.id}`,updatedUser).subscribe({
-      next: data => {
-        console.log('Utilisateur mis à jour avec succès :', data);
-        alert('successful update');
-        this.router.navigateByUrl('/profile')
-      },
-      error: error => {
-        console.error('Erreur lors de la mise à jour :', error.message);
-        alert('Une erreur est survenue.');
-      }
-    });
-  }
-
+    this.api.put({ endpoint: `/users/${this.id}`, data: updatedUser }).subscribe()
+    this.router.navigateByUrl('/profile')
+    };
+  
   cancel(): void {
     alert('the changes were not taken into account');
     this.router.navigateByUrl('/profile')
