@@ -39,16 +39,18 @@ export class LoginComponent {
 
           if(this.tokenStorageService.isLogged()){
             this.router.navigateByUrl('/users');
-          }
-          else{
-            this.authentificationDenied=true;
-          }
-          
+          } 
+
         } else {
-          console.error("Réponse invalide");
+          this.authentificationDenied=true;
         }
-      }}
-    )
+      },
+      error: (err) => {
+        console.error("Erreur lors de la requête :", err);
+        this.authentificationDenied=true;
+
+      }
+    })
 
 
   }
