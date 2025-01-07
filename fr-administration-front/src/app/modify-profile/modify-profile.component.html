@@ -9,12 +9,12 @@
     <input type="password" id="new_pswd">
     <br>
     <label>Old password* :</label>
-    <input type="password" id="pswd">
+    <input type="password" id="pswd" required>
     <br>
 
     <button type="submit">Save</button>
     <a (click)="cancel()"><button>Cancel</button></a>
     <div *ngIf ="error_pswd">
-      Mot de passe invalide
+      Wrong password
     </div>
   </form>
