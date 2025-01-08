@@ -15,15 +15,15 @@ export class UsersController {
         description: 'The user has been successfully created.'
     })
     async create(@Body() input: UserInput): Promise<User>{
-        return this.service.create(input.lastname, input.firstname, input.age, input.password);
+        return await this.service.create(input.lastname, input.firstname, input.age, input.password);
     }
     @Get()
     async getAll():Promise<User[]>{
-        return this.service.getAll();
+        return await this.service.getAll();
     }
     @Get(':id')
     async getById(@Param() parameter: UserParameter): Promise<User>{
-        const u = this.service.getById(+parameter.id);
+        const u = await this.service.getById(+parameter.id);
         if (!u){
             throw new HttpException(`Could not find a user with the id ${parameter.id}`, HttpStatus.NOT_FOUND);
         }
@@ -31,7 +31,7 @@ export class UsersController {
     }
     @Get(':id/roles')
     async getAllRolesById(@Param() parameter): Promise<Role[]>{
-        const user = await this.service.getAllRolesById(parameter.id);
+        const user = await await this.service.getAllRolesById(parameter.id);
         if (!user) {
             throw new HttpException(`Could not find a user with the id ${parameter.id}`, HttpStatus.NOT_FOUND)        
         }
@@ -39,7 +39,7 @@ export class UsersController {
     }
     @Put(':id')
     async update(@Param() parameter: UserParameter, @Body() input: UserInput): Promise<User>{
-        const u = this.service.update(+parameter.id,input.lastname,input.firstname,input.age,input.password);
+        const u = await this.service.update(+parameter.id,input.lastname,input.firstname,input.age,input.password);
         if (!u){
             throw new HttpException(`Could not find a user with the id ${parameter.id}`, HttpStatus.NOT_FOUND);
         }
@@ -47,7 +47,7 @@ export class UsersController {
     }
     @Delete(':id')
     async delete(@Param() parameter: UserParameter): Promise<User>{
-        const u = this.service.delete(+parameter.id);
+        const u = await this.service.delete(+parameter.id);
         if(!u){
             throw new HttpException(`Could not find a user with the id ${parameter.id}`, HttpStatus.NOT_FOUND); 
         }

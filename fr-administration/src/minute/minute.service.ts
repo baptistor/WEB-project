@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { UsersService } from 'src/users/users.service';
 import { AssociationsService } from 'src/associations/associations.service';
 import { User } from 'src/users/users.entity';
-import { min } from 'rxjs';
 
 @Injectable()
 export class MinuteService {
@@ -13,27 +12,43 @@ export class MinuteService {
             @InjectRepository(Minute)
             private repository: Repository<Minute>,
             private userServ: UsersService,
+            private assoServ: AssociationsService
         ){}
     
         async getAll(): Promise<Minute[]> {
-            return this.repository.find();
+            return await this.repository.find();
         }
     
         async getByMinuteId(paramId: number): Promise<Minute> {
             const id = +paramId;
-            return this.repository.findOneBy({id})
+            return await this.repository.findOneBy({id})
+
+        }
+
+        async loadUsersInAssociation(idAssociation: number ) : Promise<number[]>{
+            const Asso = await this.assoServ.getById(idAssociation);
+            let tableIdUser = [];
+            for (let i =0; i < Asso.members.length; i++){
+                tableIdUser.push(Asso.members[i].id);
+            }
+            return tableIdUser;
 
         }
     
         async create(content: string, idVoters: number[], date: string, idAssociation: number): Promise<Minute> {
             if (content !== undefined && idVoters !== undefined && date !== undefined && idAssociation !== undefined) {
-                const minute = await this.repository.create({content, date, idAssociation});
+                const minute = this.repository.create({content, date, idAssociation});
                 const tabUsers : User[] = [];
+                const listUsersInAssociation =await this.loadUsersInAssociation(idAssociation);
                 for (let i = 0; i<idVoters.length; i++) {
                     const user = await this.userServ.getById(idVoters[i]);
                     if (!user) {
                         throw new HttpException(`User with ID ${idVoters[i]} not found`, HttpStatus.NOT_FOUND);
                     }
+                    else if(!(listUsersInAssociation.includes(user.id))){
+                        throw new HttpException(`User with ID ${idVoters[i]} not in Association : ${idAssociation} `, HttpStatus.NOT_FOUND);
+                    }
+
                     tabUsers.push(user);
                 } 
                 minute.voters=tabUsers;

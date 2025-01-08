@@ -6,6 +6,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Equal, In, Repository } from 'typeorm';
 import { AssociationDTO } from './associations.dto';
 import { Member } from './associations.member';
+import { Role } from 'src/roles/roles.entity';
+import { Minute } from 'src/minute/minute.entity';
 
 @Injectable()
 export class AssociationsService {
@@ -13,12 +15,18 @@ export class AssociationsService {
         @InjectRepository(Association)
         private repository: Repository<Association>,
         @InjectRepository(User)
-        private userRepository: Repository<User>
+        private userRepository: Repository<User>,
+        @InjectRepository(Minute)
+        private minuteRepository: Repository<Minute>
     ) {}
     private async toAssociationDTO(association: Association): Promise<AssociationDTO> {
             const members: Member[] = (association.users ?? []).map(user => {
-            const role = user.roles?.find(role => role.association?.id === association.id);
-            return new Member(user.lastname,user.firstname, user.age, role?.name || undefined,);
+            let role = user.roles?.find(role => role.association?.id === association.id);
+            if (!role){
+                const newRole= new Role(user.id,association.id,"member")
+                role =newRole
+            }
+            return new Member(user.id,user.lastname,user.firstname, user.age, role.name);
         });
         return new AssociationDTO(association.id,association.name, members);
     }
@@ -77,5 +85,14 @@ export class AssociationsService {
         }
 
         return s.users;
+    }
+
+    async getMinutes(id:number, sort:string, order: 'ASC' | 'DESC'): Promise<Minute[]> {
+        const minutes = await this.minuteRepository.find({where: {idAssociation: Equal(id)}, order: { [sort]: order },})
+
+        if(!minutes){
+            return undefined;
+        }
+        return minutes
     }
 }

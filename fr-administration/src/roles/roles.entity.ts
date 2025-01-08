@@ -20,4 +20,10 @@ export class Role {
   @ManyToOne(() => Association, (association) => association.roles)
   @JoinColumn({ name: 'idAssociation' })
   association: Association;
+
+  constructor(idUser: number, idAssocaition: number, name:string){
+    this.idUser=idUser;
+    this.idAssociation=idAssocaition;
+    this.name=name;
+  }
 }

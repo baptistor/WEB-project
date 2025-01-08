@@ -27,6 +27,8 @@ export class MinuteController {
         return minute;
     }
 
+    
+
 
 
     @Post()

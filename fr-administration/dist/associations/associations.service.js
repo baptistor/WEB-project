@@ -20,15 +20,22 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const associations_dto_1 = require("./associations.dto");
 const associations_member_1 = require("./associations.member");
+const roles_entity_1 = require("../roles/roles.entity");
+const minute_entity_1 = require("../minute/minute.entity");
 let AssociationsService = class AssociationsService {
-    constructor(repository, userRepository) {
+    constructor(repository, userRepository, minuteRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
+        this.minuteRepository = minuteRepository;
     }
     async toAssociationDTO(association) {
         const members = (association.users ?? []).map(user => {
-            const role = user.roles?.find(role => role.association?.id === association.id);
-            return new associations_member_1.Member(user.lastname, user.firstname, user.age, role?.name || undefined);
+            let role = user.roles?.find(role => role.association?.id === association.id);
+            if (!role) {
+                const newRole = new roles_entity_1.Role(user.id, association.id, "member");
+                role = newRole;
+            }
+            return new associations_member_1.Member(user.id, user.lastname, user.firstname, user.age, role.name);
         });
         return new associations_dto_1.AssociationDTO(association.id, association.name, members);
     }
@@ -86,13 +93,22 @@ let AssociationsService = class AssociationsService {
         }
         return s.users;
     }
+    async getMinutes(id, sort, order) {
+        const minutes = await this.minuteRepository.find({ where: { idAssociation: (0, typeorm_2.Equal)(id) }, order: { [sort]: order }, });
+        if (!minutes) {
+            return undefined;
+        }
+        return minutes;
+    }
 };
 exports.AssociationsService = AssociationsService;
 exports.AssociationsService = AssociationsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(associations_entity_1.Association)),
     __param(1, (0, typeorm_1.InjectRepository)(users_entity_1.User)),
+    __param(2, (0, typeorm_1.InjectRepository)(minute_entity_1.Minute)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
         typeorm_2.Repository])
 ], AssociationsService);
 //# sourceMappingURL=associations.service.js.map
