@@ -52,8 +52,12 @@ export class ProfileComponent {
         console.log('Réponse reçue :', response.body);
         this.user = response.body;
         this.loadAssociations();
+        if (response.body == null){
+          this.router.navigateByUrl('/users')
+        }
       },
-      error: (err) => console.error('Erreur lors du chargement de l\'utilisateur:', err),
+      error: (err) => {console.error('Erreur lors du chargement de l\'utilisateur:', err);
+      },
     });
   }
   loadAssociations(): void {

@@ -24,5 +24,4 @@
 
 </div>
 <a *ngIf="userOnHisProfile" (click)="modify()"><button>Modify profile</button></a>
-<a (click)="modify()"><button>Modify profile</button></a>
-<a (click)="delete()"><button>Delete account</button></a>
+<a *ngIf="userOnHisProfile" (click)="delete()"><button>Delete account</button></a>
