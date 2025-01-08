@@ -4,10 +4,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { lastValueFrom, Observable } from 'rxjs';
 import { NavComponent } from "../nav/nav.component";
+import {RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-users-list',
-  imports: [MatTableModule, NavComponent],
+  imports: [MatTableModule, NavComponent, CommonModule, RouterModule],
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.css'
 })

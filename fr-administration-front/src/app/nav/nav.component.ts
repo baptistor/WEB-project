@@ -23,4 +23,10 @@ export class NavComponent {
   profile(): void {
     this.router.navigateByUrl('/profile');
   }
+  listUser(): void {
+    this.router.navigateByUrl('/users');
+  }
+  listAsso(): void {
+    this.router.navigateByUrl('/associations');
+  }
 }

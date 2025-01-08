@@ -30,19 +30,20 @@ let AssociationsService = class AssociationsService {
             const role = user.roles?.find(role => role.association?.id === association.id);
             return new associations_member_1.Member(user.lastname, user.firstname, user.age, role?.name || undefined);
         });
-        return new associations_dto_1.AssociationDTO(association.name, members);
+        return new associations_dto_1.AssociationDTO(association.id, association.name, members);
     }
     async getAll() {
-        const s = await this.repository.find({ relations: ['users'] });
+        const s = await this.repository.find({ relations: ['users', 'users.roles', 'users.roles.association'] });
         return Promise.all(s.map(asso => this.toAssociationDTO(asso)));
     }
     async getById(id) {
-        const s = await this.repository.findOne({ where: { id: (0, typeorm_2.Equal)(id) }, relations: ['users'] });
+        const s = await this.repository.findOne({ where: { id: (0, typeorm_2.Equal)(id) }, relations: ['users', 'users.roles', 'users.roles.association'] });
         return await this.toAssociationDTO(s);
     }
     async create(idUsers, name) {
         const users = await this.userRepository.find({ where: { id: (0, typeorm_2.In)(idUsers) } });
         if (users.length !== idUsers.length) {
+            console.log(users);
             return undefined;
         }
         const newAssociation = await this.repository.create({
@@ -79,7 +80,7 @@ let AssociationsService = class AssociationsService {
         return await this.toAssociationDTO(s);
     }
     async getMembers(id) {
-        const s = await this.repository.findOne({ where: { id: (0, typeorm_2.Equal)(id) }, relations: ['users'] });
+        const s = await this.repository.findOne({ where: { id: (0, typeorm_2.Equal)(id) }, relations: ['users', 'users.roles', 'users.roles.association'] });
         if (!s) {
             return undefined;
         }

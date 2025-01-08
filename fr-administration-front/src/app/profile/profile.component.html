@@ -1,11 +1,26 @@
 <app-nav></app-nav>
 <div *ngIf="user">
-    <h2>Profil de {{ user.firstname }} {{ user.name }}</h2>
+    <h2>Profil de {{ user.firstname }} {{ user.lastname }}</h2>
     <ul>
         <li>ID : {{ user.id }}</li>
         <li>Last name : {{ user.lastname }}</li>
         <li>First name : {{ user.firstname }}</li>
         <li>Age : {{ user.age }}</li>
     </ul>
+
+    <h2 *ngIf="user.roles?.length">Association dont {{ user.firstname }} {{ user.lastname }} fait partie</h2>
+    <h2 *ngIf="!user.roles?.length">{{ user.firstname }} {{ user.lastname }} n'est membre d'aucune association</h2>
+        <ul *ngIf="user?.roles?.length">
+            <li *ngFor="let role of user.roles; let i = index">
+            <span class="nom asso">{{ Assoname[i] }}</span>
+            <span class="nom role" *ngIf="role.name?.length"> : {{ role.name }}</span>
+            </li>
+        </ul>
+      
+
+
+
+
+
 </div>
-<a (click)="modify()"><button>Modify profile</button></a>
+<a *ngIf="userOnHisProfile" (click)="modify()"><button>Modify profile</button></a>

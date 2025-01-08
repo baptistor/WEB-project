@@ -25,10 +25,10 @@ export class UsersService {
         return await this.repository.save(newUser);
     }
     async getAll(): Promise<User[]>{
-        return await this.repository.find();
+        return await this.repository.find({relations: ['roles']});
     }
     async getById(id): Promise<User>{
-        return await this.repository.findOne({where: {id: Equal(id)}});
+        return await this.repository.findOne({where: {id: Equal(id)}, relations: ['roles']});
     }
     async getAllRolesById(paramId: number): Promise<Role[]> {
         const id = +paramId;
