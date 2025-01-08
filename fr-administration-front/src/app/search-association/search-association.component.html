@@ -1,0 +1,9 @@
+<form (submit)="submit($event)">
+    <label>Association search by id* : </label>
+    <input type="number" id="association-id">
+    <br>
+    <button type="submit">Search</button>
+    <div *ngIf ="error_id">
+      Wrong id
+    </div>
+  </form>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TokenStorageService } from '../services/token-storage.service';
 import { Router } from '@angular/router';
+import { SearchUserComponent } from "../search-user/search-user.component";
 
 @Component({
   selector: 'app-nav',
@@ -27,6 +28,6 @@ export class NavComponent {
     this.router.navigateByUrl('/users');
   }
   listAsso(): void {
-    this.router.navigateByUrl('/associations');
+    this.router.navigateByUrl('/associations/list');
   }
 }

@@ -14,7 +14,9 @@ export const routes: Routes = [
   {path: 'login/:from', component: LoginComponent,canActivate: [notAuthGuard]},
   {path: 'login', component: LoginComponent,canActivate: [notAuthGuard]},
   {path: 'users', component: UsersListComponent, canActivate: [authGuard]},
-  {path: 'associations', component: AssociationsListComponent, canActivate: [authGuard]},
+  {path: 'users/:id', component: UsersListComponent, canActivate: [authGuard]},
+  {path: 'associations/list', component: AssociationsListComponent, canActivate: [authGuard]},
+  {path: 'associations/list/:id', component: AssociationsListComponent, canActivate: [authGuard]},
   {path: 'profile', component: ProfileComponent,canActivate: [authGuard]},
   {path: 'profile/:id', component: ProfileComponent,canActivate: [authGuard]},
   {path: 'modify-profile', component: ModifyProfileComponent,canActivate: [authGuard]},
@@ -22,5 +24,5 @@ export const routes: Routes = [
   {path: 'registration', component: RegistrationComponent,canActivate: [notAuthGuard]},
   {path: 'delete-user', component: DeleteUserComponent,canActivate: [authGuard]},
   {path: '', redirectTo:'login', pathMatch:'full'},
-  {path: '**', component: LoginComponent},
+  {path: '**', component: LoginComponent,canActivate: [notAuthGuard]},
 ];
