@@ -35,7 +35,7 @@ export class LoginComponent {
         console.log("Réponse reçue : ", response);
   
         if (response) {
-          this.tokenStorageService.save(response.access_token, username);
+          this.tokenStorageService.save(response.body.access_token, username);
 
           if(this.tokenStorageService.isLogged()){
             this.router.navigateByUrl('/users');
