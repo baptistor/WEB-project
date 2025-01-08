@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiHelperService } from '../services/api-helper.service';
 import { TokenStorageService } from '../services/token-storage.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -13,12 +13,21 @@ import { CommonModule } from '@angular/common';
 
 export class LoginComponent {
   authentificationDenied = false;
+  isFromRegistration = false;
   constructor(
     private api: ApiHelperService,  
     private tokenStorageService: TokenStorageService,
-    private router: Router) {}
-    
-  login(): void {
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+  
+  ngOnInit(): void{
+    this.isFromRegistration = this.route.snapshot.paramMap.get('from') == "registration" ? true : false;
+  }
+  login(event?: Event): void {
+    if (event) {
+      event.preventDefault();
+    }
     const username: string = (document.getElementById('username') as HTMLInputElement).value;
     const password: string = (document.getElementById('password') as HTMLInputElement).value;
     this.api.post({endpoint: '/auth/login', data: { username, password }}).subscribe({
@@ -44,5 +53,8 @@ export class LoginComponent {
     })
 
 
+  }
+  registration(): void{
+    this.router.navigateByUrl('/registration');
   }
 }

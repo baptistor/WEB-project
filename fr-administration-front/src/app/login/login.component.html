@@ -1,10 +1,14 @@
+<div *ngIf="isFromRegistration">
+    Your account has been created, please log in now:
+</div>
 <div>
     <label for="username">Username</label>
     <input type="text" id="username" placeholder="id User" />
     <label for="password">Password</label>
     <input type="password" id="password" placeholder="password" />
-    <a (click)="login()"><button>Login</button></a>
+    <a (click)="login($event)"><button>Login</button></a>
 </div>
+<a (click)="registration()"><button>Registration</button></a>
 
 <div *ngIf="authentificationDenied">
     Identifiant ou Mot de passe invalide

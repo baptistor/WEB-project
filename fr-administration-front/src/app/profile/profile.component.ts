@@ -86,4 +86,7 @@ export class ProfileComponent {
   modify(): void {
     this.router.navigateByUrl('/modify-profile');
   }
+  delete() : void {
+    this.router.navigateByUrl('/delete-user');
+  }
 }
