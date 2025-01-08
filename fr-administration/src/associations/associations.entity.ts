@@ -15,5 +15,5 @@ export class Association {
     name: string;
 
     @OneToMany(()=> Role, role=>role.association,{ eager: true } )
-    public roles: Role
+    public roles: Role[]
 }

@@ -3,3 +3,10 @@
     margin: 0 auto;
   }
   
+.clickable-row {
+    cursor: pointer;
+}
+
+.clickable-row:hover {
+    background-color: #f1f1f1; /* Couleur de survol */
+}

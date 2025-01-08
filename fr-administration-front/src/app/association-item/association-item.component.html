@@ -1,0 +1,17 @@
+<app-nav></app-nav>
+<div *ngIf="association">
+    <h2>{{association.name}}</h2>
+    <ul>
+        <li>Id : {{ association.id }}</li>
+        <li>Nombre de membres : {{association.members.length}}</li>
+    </ul>
+
+    <h2 *ngIf="association.members.length">Membres de l'association : </h2>
+        <ul>
+            <li *ngFor="let member of association.members">
+            <span class="nom">{{member.name}} {{member.firstname}} / </span>
+            <span class="age">Age : {{member.age}} ans </span>
+            <span class="role" *ngIf="member.role?.length"> / Role : {{ member.role }}</span>
+            </li>
+        </ul>
+</div>

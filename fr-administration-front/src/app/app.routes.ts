@@ -8,15 +8,19 @@ import { RegistrationComponent } from './registration/registration.component';
 import { notAuthGuard } from './guards/not-auth.guard';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { AssociationsListComponent } from './associations-list/associations-list.component';
+import { AssociationItemComponent } from './association-item/association-item.component';
 
 export const routes: Routes = [
   {path: 'login/:from', component: LoginComponent,canActivate: [notAuthGuard]},
   {path: 'login', component: LoginComponent,canActivate: [notAuthGuard]},
   {path: 'users', component: UsersListComponent, canActivate: [authGuard]},
   {path: 'associations', component: AssociationsListComponent, canActivate: [authGuard]},
-  {path: '', redirectTo:'login', pathMatch:'full'},
   {path: 'profile', component: ProfileComponent,canActivate: [authGuard]},
+  {path: 'profile/:id', component: ProfileComponent,canActivate: [authGuard]},
   {path: 'modify-profile', component: ModifyProfileComponent,canActivate: [authGuard]},
+  {path: 'associations/:id', component: AssociationItemComponent,canActivate: [authGuard]},
   {path: 'registration', component: RegistrationComponent,canActivate: [notAuthGuard]},
   {path: 'delete-user', component: DeleteUserComponent,canActivate: [authGuard]},
+  {path: '', redirectTo:'login', pathMatch:'full'},
+  {path: '**', component: LoginComponent},
 ];

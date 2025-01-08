@@ -20,14 +20,14 @@ export class AssociationsService {
             const role = user.roles?.find(role => role.association?.id === association.id);
             return new Member(user.lastname,user.firstname, user.age, role?.name || undefined,);
         });
-        return new AssociationDTO(association.name, members);
+        return new AssociationDTO(association.id,association.name, members);
     }
     async getAll():Promise<AssociationDTO[]>{
-        const s = await this.repository.find({relations: ['users']});
+        const s = await this.repository.find({relations: ['users', 'users.roles', 'users.roles.association']});
         return Promise.all(s.map(asso=>this.toAssociationDTO(asso)));
     }
     async getById(id): Promise<AssociationDTO>{
-        const s = await this.repository.findOne({where: {id: Equal(id)}, relations: ['users']});
+        const s = await this.repository.findOne({where: {id: Equal(id)}, relations: ['users', 'users.roles', 'users.roles.association']});
         return await this.toAssociationDTO(s); 
     }
     async create(idUsers : number[], name : string): Promise<AssociationDTO>{
@@ -70,7 +70,7 @@ export class AssociationsService {
         return await this.toAssociationDTO(s); 
     }
     async getMembers(id:number): Promise<User[]> {
-        const s = await this.repository.findOne({where: {id: Equal(id)},relations: ['users']});
+        const s = await this.repository.findOne({where: {id: Equal(id)},relations: ['users', 'users.roles', 'users.roles.association']});
 
         if(!s){
             return undefined;
