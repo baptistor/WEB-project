@@ -1,5 +1,12 @@
 <app-nav></app-nav>
-<app-search-association></app-search-association>
+<form [formGroup]="associationsGroup">
+  <label>User search by id* : </label>
+  <input type="number" id="user-id" formControlName="controlAssociations">
+  <br>
+</form>
+<div *ngIf ="error_id">
+Wrong id
+</div>
 <body>
     <div class="table-container">
         <h1>Tableau des associations</h1>

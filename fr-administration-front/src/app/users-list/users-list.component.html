@@ -1,5 +1,12 @@
 <app-nav></app-nav>
-<app-search-user></app-search-user>   
+<form [formGroup]="usersGroup">
+    <label>User search by id* : </label>
+    <input type="number" id="user-id" formControlName="controlUsers">
+    <br>
+</form>
+<div *ngIf ="error_id">
+Wrong id
+</div>
 <div class="table-container">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 50%; margin: 0 auto;">
         <!-- Columns Definitions -->
