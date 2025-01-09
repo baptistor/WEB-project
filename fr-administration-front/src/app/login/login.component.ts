@@ -24,7 +24,7 @@ export class LoginComponent {
   ngOnInit(): void{
     this.isFromRegistration = this.route.snapshot.paramMap.get('from') == "registration" ? true : false;
   }
-  login(event?: Event): void {
+  submit(event?: Event): void {
     if (event) {
       event.preventDefault();
     }

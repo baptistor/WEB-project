@@ -1,13 +1,15 @@
 <div *ngIf="isFromRegistration">
     Your account has been created, please log in now:
 </div>
-<div>
-    <label for="username">Username</label>
-    <input type="text" id="username" placeholder="id User" />
-    <label for="password">Password</label>
-    <input type="password" id="password" placeholder="password" />
-    <a (click)="login($event)"><button>Login</button></a>
-</div>
+<form (submit)="submit($event)">
+    <div>
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="id User" />
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="password" />
+        <button type="submit">Login</button>
+    </div>
+</form>
 <a (click)="registration()"><button>Registration</button></a>
 
 <div *ngIf="authentificationDenied">
