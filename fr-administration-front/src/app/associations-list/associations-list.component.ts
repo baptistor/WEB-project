@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { NavComponent } from '../nav/nav.component';
-import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SearchAssociationComponent } from "../search-association/search-association.component";
 import { ApiHelperService } from '../services/api-helper.service';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 export interface Member {
   name: string;
   role: string;
@@ -18,48 +18,55 @@ export interface Association {
 }
   @Component({
     selector: 'app-associations-list',
-    imports: [MatTableModule, NavComponent, CommonModule, RouterModule, SearchAssociationComponent],
+    imports: [MatTableModule, NavComponent, CommonModule, RouterModule,ReactiveFormsModule ],
     templateUrl: './associations-list.component.html',
     styleUrl: './associations-list.component.css'
   })
   export class AssociationsListComponent implements OnInit{
     id: number = 0;
-    dataSource: any[] = [];
+    error_id : boolean = false;
     displayedColumns: string[] = ['id','name', 'members'];
+
     constructor(private api:ApiHelperService,
       private route: ActivatedRoute,
-      private router: Router) {}
-      ngOnInit(): void {
-        this.route.paramMap.subscribe(paramMap => {
-          const idParam = paramMap.get('id');
-          this.id = idParam ? +idParam : 0;
-          this.loadData();
-        });
-      }
-    
-      loadData(): void {
-        if (this.id === 0) {
-          this.api.get({ endpoint: '/associations' }).subscribe({
-            next: (response) => {
-              this.dataSource = response.body;
-              console.log(response.body);
-            },
-            error: (err) => {
-              console.error(err);
-            }
-          });
-        } else {
-          this.api.get({ endpoint: `/associations/${this.id}` }).subscribe({
-            next: (response) => {
-              this.dataSource = [response.body];
-              console.log(response.body);
-            },
-            error: (err) => {
-              console.error(err);
-            }
-          });
+      private router: Router) {
+        dataSource : Association[] = [];
+    allAssociations : Association[] = [];
+    associationsGroup = new FormGroup({
+      controlAssociations: new FormControl(),
+    })}
+
+    ngOnInit(): void {
+      this.loadData();
+      this.associationsGroup.get('controlAssociations')?.valueChanges.subscribe(
+        value => {
+          this.id = value ? +value : 0;
+          this.filterData();
         }
+      )
+    }
+    loadData(): void {
+      this.api.get({ endpoint: '/associations' }).subscribe({
+        next: (response) => {
+          this.dataSource = response.body;
+          this.allAssociations = this.dataSource;
+          console.log(response.body);
+          this.filterData();
+        },
+        error: (err) => {
+          console.error(err);
+        }
+      });
+    }
+    filterData(): void{
+      if(this.id != 0){
+        const idString = this.id.toString();
+        console.log(this.id)
+        this.dataSource = this.allAssociations.filter(asso => asso.id.toString().startsWith(idString))
+      }else {
+        this.dataSource = this.allAssociations
       }
+    }
 
       createAssociation(): void{
         this.router.navigateByUrl('/create-association');

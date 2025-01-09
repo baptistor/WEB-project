@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { NavComponent } from "../nav/nav.component";
-import {ActivatedRoute, RouterModule } from '@angular/router';
-import { SearchUserComponent } from '../search-user/search-user.component';
+import {RouterModule } from '@angular/router';
 import { ApiHelperService } from '../services/api-helper.service';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 export interface User {
   id: number;
@@ -14,46 +14,49 @@ export interface User {
 }
 @Component({
   selector: 'app-users-list',
-  imports: [MatTableModule, NavComponent, CommonModule, RouterModule,SearchUserComponent],
+  imports: [MatTableModule, NavComponent, CommonModule, RouterModule,ReactiveFormsModule],
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.css'
 })
 export class UsersListComponent implements OnInit{
+  error_id : boolean = false;
   id: number = 0;
   dataSource : User[] = [];
+  allUsers : User[] = [];
   displayedColumns: string[] = ['id', 'lastname', 'firstname', 'age'];
-  constructor(private api:ApiHelperService,
-    private route: ActivatedRoute
-  ) {}
+  usersGroup = new FormGroup({
+    controlUsers: new FormControl(),
+  })
+  constructor(private api:ApiHelperService) {}
   ngOnInit(): void {
-    this.route.paramMap.subscribe(paramMap => {
-      const idParam = paramMap.get('id');
-      this.id = idParam ? +idParam : 0;
-      this.loadData();
+    this.loadData();
+    this.usersGroup.get('controlUsers')?.valueChanges.subscribe(
+      value => {
+        this.id = value ? +value : 0;
+        this.filterData();
+      }
+    )
+  }
+  loadData(): void {
+    this.api.get({ endpoint: '/users' }).subscribe({
+      next: (response) => {
+        this.dataSource = response.body;
+        this.allUsers = this.dataSource;
+        console.log(response.body);
+        this.filterData();
+      },
+      error: (err) => {
+        console.error(err);
+      }
     });
   }
-
-  loadData(): void {
-    if (this.id === 0) {
-      this.api.get({ endpoint: '/users' }).subscribe({
-        next: (response) => {
-          this.dataSource = response.body;
-          console.log(response.body);
-        },
-        error: (err) => {
-          console.error(err);
-        }
-      });
-    } else {
-      this.api.get({ endpoint: `/users/${this.id}` }).subscribe({
-        next: (response) => {
-          this.dataSource = [response.body];
-          console.log(response.body);
-        },
-        error: (err) => {
-          console.error(err);
-        }
-      });
+  filterData(): void{
+    if(this.id != 0){
+      const idString = this.id.toString();
+      console.log(this.id)
+      this.dataSource = this.allUsers.filter(user => user.id.toString().startsWith(idString))
+    }else {
+      this.dataSource = this.allUsers
     }
   }
 }
