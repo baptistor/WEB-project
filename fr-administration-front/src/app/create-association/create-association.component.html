@@ -1,0 +1,43 @@
+<app-nav></app-nav>
+<div class="prems"*ngIf="isOk;">
+    <h2>Création d'une Association :</h2>
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Nom de l'association</mat-label>
+        <input
+        matInput
+        placeholder="Ex. ESIR"
+        [(ngModel)]="name"
+      />
+    </mat-form-field>
+    
+
+    <h3>Utilisateurs disponibles :</h3>
+    <mat-form-field appearance="fill">
+      <mat-label>Sélectionnez ou désélectionnez des utilisateurs</mat-label>
+      <mat-select [(value)]="selectedUser" multiple>
+        <mat-option *ngFor="let user of availableUser" [value]="user">
+          {{ user.lastname }} {{ user.firstname }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <h3 *ngIf="selectedUser.length">Utilisateurs sélectionnés et leurs rôles :</h3>
+    <div *ngFor="let user of selectedUser" class="user-role-container">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Rôle de {{ user.lastname }} {{ user.firstname }}</mat-label>
+        <input
+          matInput
+          placeholder="Ex. Membre"
+          [(ngModel)]="rolesSelectedUser[user.id]"
+        />
+      </mat-form-field>
+    </div>
+
+    <div>
+        <a (click)="create()"><button *ngIf="name">Créer l'association</button></a>
+    </div>   
+</div>
+  
+  
+  
+  

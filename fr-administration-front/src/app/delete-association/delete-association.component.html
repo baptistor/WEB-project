@@ -1,0 +1,11 @@
+<form (submit)="submit($event)">
+    <label>Old password* :</label>
+    <input type="password" id="pswd" required>
+    <br>
+
+    <button type="submit">Delete Association : {{idAsso}}</button>
+    <a (click)="cancel()"><button>Cancel</button></a>
+    <div *ngIf ="error_pswd">
+      Wrong password
+    </div>
+  </form>

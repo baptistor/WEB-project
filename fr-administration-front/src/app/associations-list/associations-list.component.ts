@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { NavComponent } from '../nav/nav.component';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { SearchAssociationComponent } from "../search-association/search-association.component";
 import { ApiHelperService } from '../services/api-helper.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 export interface Member {
@@ -25,12 +26,16 @@ export interface Association {
     id: number = 0;
     error_id : boolean = false;
     displayedColumns: string[] = ['id','name', 'members'];
-    dataSource : Association[] = [];
+
+    constructor(private api:ApiHelperService,
+      private route: ActivatedRoute,
+      private router: Router) {
+        dataSource : Association[] = [];
     allAssociations : Association[] = [];
     associationsGroup = new FormGroup({
       controlAssociations: new FormControl(),
-    })
-    constructor(private api:ApiHelperService) {}
+    })}
+
     ngOnInit(): void {
       this.loadData();
       this.associationsGroup.get('controlAssociations')?.valueChanges.subscribe(
@@ -62,5 +67,9 @@ export interface Association {
         this.dataSource = this.allAssociations
       }
     }
+
+      createAssociation(): void{
+        this.router.navigateByUrl('/create-association');
+      }
 
   }
