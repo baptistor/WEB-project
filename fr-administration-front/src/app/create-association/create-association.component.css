@@ -1,0 +1,127 @@
+/* Style général pour le formulaire */
+h2 {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color: #4a90e2;
+    margin-bottom: 24px;
+  }
+  
+  h3 {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    margin-top: 24px;
+    text-align: center;
+  }
+  
+  /* Conteneur global centré */
+  .prems {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: white;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centre tous les éléments horizontalement */
+  }
+  
+  /* Centrer les mat-form-field et mat-select */
+  .mat-form-field {
+    width: 80%; /* Réduit la largeur pour centrer visuellement */
+    max-width: 600px;
+    margin: 16px 0; /* Espacement entre les champs */
+  }
+  
+  mat-select {
+    text-align: left; /* Alignement du texte à l'intérieur du menu déroulant */
+  }
+  
+  /* Conteneur des rôles des utilisateurs */
+  .user-role-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; /* Aligne les champs de rôle au centre */
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #f9f9f9;
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+  
+  .user-role-container:hover {
+    background: #f0f8ff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Bouton de création centré */
+  .prems a {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  button {
+    padding: 12px 24px;
+    font-size: 16px;
+    color: white;
+    background-color: #4a90e2;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  button:hover {
+    background-color: #357ab8;
+    transform: scale(1.05);
+  }
+  
+  button:active {
+    background-color: #2b5f8c;
+    transform: scale(1);
+  }
+  
+  /* Ajout d'animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  mat-form-field,
+  .user-role-container,
+  button {
+    animation: fadeIn 0.5s ease;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .prems {
+      padding: 16px;
+    }
+  
+    .mat-form-field {
+      width: 100%; /* Prend tout l'espace disponible sur les petits écrans */
+    }
+  
+    .user-role-container {
+      flex-direction: column; /* Garde les champs bien alignés au centre */
+    }
+  
+    button {
+      width: 100%;
+    }
+  }
+  

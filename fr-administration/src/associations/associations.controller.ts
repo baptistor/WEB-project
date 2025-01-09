@@ -39,7 +39,7 @@ export class AssociationsController {
         return s;
     }
     @Delete(':id')
-    async delete(@Param() parameter: AssociationParameter): Promise<AssociationDTO>{
+    async delete(@Param() parameter: AssociationParameter): Promise<Boolean>{
         const s = await this.service.delete(+parameter.id);
         if(!s){
             throw new HttpException(`Could not find an association with the id ${parameter.id}`, HttpStatus.NOT_FOUND); 

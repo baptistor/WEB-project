@@ -22,11 +22,13 @@ const associations_dto_1 = require("./associations.dto");
 const associations_member_1 = require("./associations.member");
 const roles_entity_1 = require("../roles/roles.entity");
 const minute_entity_1 = require("../minute/minute.entity");
+const roles_service_1 = require("../roles/roles.service");
 let AssociationsService = class AssociationsService {
-    constructor(repository, userRepository, minuteRepository) {
+    constructor(repository, userRepository, minuteRepository, roleServ) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.minuteRepository = minuteRepository;
+        this.roleServ = roleServ;
     }
     async toAssociationDTO(association) {
         const members = (association.users ?? []).map(user => {
@@ -50,15 +52,18 @@ let AssociationsService = class AssociationsService {
     async create(idUsers, name) {
         const users = await this.userRepository.find({ where: { id: (0, typeorm_2.In)(idUsers) } });
         if (users.length !== idUsers.length) {
-            console.log(users);
             return undefined;
         }
         const newAssociation = await this.repository.create({
             name,
             users
         });
-        await this.repository.save(newAssociation);
-        return await this.toAssociationDTO(newAssociation);
+        const asso = await this.repository.save(newAssociation);
+        this.roleServ.create('Président', idUsers[0], asso.id);
+        for (let i = 1; i < idUsers.length; i++) {
+            this.roleServ.create('Membre', idUsers[i], asso.id);
+        }
+        return await this.getById(asso.id);
     }
     async update(id, idUsers, name) {
         const s = await this.repository.findOne({ where: { id: (0, typeorm_2.Equal)(id) } });
@@ -83,8 +88,11 @@ let AssociationsService = class AssociationsService {
         if (!s) {
             return undefined;
         }
-        await this.repository.delete(id);
-        return await this.toAssociationDTO(s);
+        for (let i = 0; i < s.roles.length; i++) {
+            await this.roleServ.delete(+s.roles[i].idUser, id);
+        }
+        const assoSupp = await this.repository.delete(id);
+        return assoSupp.affected > 0;
     }
     async getMembers(id) {
         const s = await this.repository.findOne({ where: { id: (0, typeorm_2.Equal)(id) }, relations: ['users', 'users.roles', 'users.roles.association'] });
@@ -109,6 +117,7 @@ exports.AssociationsService = AssociationsService = __decorate([
     __param(2, (0, typeorm_1.InjectRepository)(minute_entity_1.Minute)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         typeorm_2.Repository,
-        typeorm_2.Repository])
+        typeorm_2.Repository,
+        roles_service_1.RolesService])
 ], AssociationsService);
 //# sourceMappingURL=associations.service.js.map

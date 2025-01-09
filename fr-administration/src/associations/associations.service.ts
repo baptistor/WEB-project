@@ -8,6 +8,7 @@ import { AssociationDTO } from './associations.dto';
 import { Member } from './associations.member';
 import { Role } from 'src/roles/roles.entity';
 import { Minute } from 'src/minute/minute.entity';
+import { RolesService } from 'src/roles/roles.service';
 
 @Injectable()
 export class AssociationsService {
@@ -17,7 +18,8 @@ export class AssociationsService {
         @InjectRepository(User)
         private userRepository: Repository<User>,
         @InjectRepository(Minute)
-        private minuteRepository: Repository<Minute>
+        private minuteRepository: Repository<Minute>,
+        private roleServ: RolesService
     ) {}
     private async toAssociationDTO(association: Association): Promise<AssociationDTO> {
             const members: Member[] = (association.users ?? []).map(user => {
@@ -38,18 +40,21 @@ export class AssociationsService {
         const s = await this.repository.findOne({where: {id: Equal(id)}, relations: ['users', 'users.roles', 'users.roles.association']});
         return await this.toAssociationDTO(s); 
     }
-    async create(idUsers : number[], name : string): Promise<AssociationDTO>{
+    async create(idUsers : number[], name : string): Promise<AssociationDTO>{ // Le premier Utilisateur de idUsers[] aura automatiquement le Rôle président 
         const users = await this.userRepository.find({where: {id: In(idUsers)}});
         if (users.length !== idUsers.length){
-            console.log(users);
             return undefined;
         }
         const newAssociation = await this.repository.create({
             name,
             users
         });
-        await this.repository.save(newAssociation);
-        return await this.toAssociationDTO(newAssociation);
+        const asso =await this.repository.save(newAssociation);
+        this.roleServ.create('Président', idUsers[0], asso.id)
+        for(let i = 1; i<idUsers.length; i++){
+            this.roleServ.create('Membre', idUsers[i], asso.id)
+        }
+        return await this.getById(asso.id); //pour avoir les dépendances de rôles
     }
     async update(id : number, idUsers : number[], name : string): Promise<AssociationDTO>{
         const s = await this.repository.findOne({where: {id: Equal(id)}});
@@ -69,13 +74,16 @@ export class AssociationsService {
         this.repository.save(s);
         return await this.toAssociationDTO(s); 
     }
-    async delete(id:number): Promise<AssociationDTO>{
+    async delete(id:number): Promise<Boolean>{
         const s = await this.repository.findOne({where: {id: Equal(id)}});
         if(!s){
             return undefined; 
         }
-        await this.repository.delete(id);
-        return await this.toAssociationDTO(s); 
+        for (let i = 0; i<s.roles.length; i++){
+            await this.roleServ.delete(+s.roles[i].idUser, id)
+        }
+        const assoSupp= await this.repository.delete(id);
+        return assoSupp.affected>0; 
     }
     async getMembers(id:number): Promise<User[]> {
         const s = await this.repository.findOne({where: {id: Equal(id)},relations: ['users', 'users.roles', 'users.roles.association']});

@@ -1,6 +1,7 @@
 <app-nav></app-nav>
 <app-search-association></app-search-association>
 <body>
+    <a (click)="createAssociation()"><button>Créer une association</button></a>
     <div class="table-container">
         <h1>Tableau des associations</h1>
         <table mat-table [dataSource]="dataSource" class="modern-table">
