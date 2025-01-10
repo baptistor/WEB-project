@@ -1,14 +1,22 @@
-<nav>
-    <div>
-        <a (click)="logout()"><button>Logout</button></a>
+<nav class="navbar">
+    <div class="navbar-item">
+        <a (click)="logout()">
+            <button class="navbar-btn">Logout</button>
+        </a>
     </div>
-    <div>
-        <a (click)="profile()"><button ng-if="isLogged">Profile</button></a>
+    <div class="navbar-item" *ngIf="isLogged">
+        <a (click)="profile()">
+            <button class="navbar-btn">Profile</button>
+        </a>
     </div>
-    <div>
-        <a (click)="listUser()"><button ng-if="isLogged">Users List</button></a>
-    </div>  
-    <div>
-        <a (click)="listAsso()"><button ng-if="isLogged">Associations List</button></a>
-    </div>       
-</nav>  
+    <div class="navbar-item" *ngIf="isLogged">
+        <a (click)="listUser()">
+            <button class="navbar-btn">Users List</button>
+        </a>
+    </div>
+    <div class="navbar-item" *ngIf="isLogged">
+        <a (click)="listAsso()">
+            <button class="navbar-btn">Associations List</button>
+        </a>
+    </div>
+</nav>

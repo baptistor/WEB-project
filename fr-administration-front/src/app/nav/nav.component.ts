@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { TokenStorageService } from '../services/token-storage.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-nav',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })

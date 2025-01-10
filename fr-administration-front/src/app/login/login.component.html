@@ -1,18 +1,23 @@
-<div *ngIf="isFromRegistration">
-    Your account has been created, please log in now:
-</div>
-<form (submit)="submit($event)">
-    <div>
-        <label for="username">Username</label>
-        <input type="text" id="username" placeholder="id User" />
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="password" />
-        <button type="submit">Login</button>
+    <div *ngIf="isFromRegistration" class="registration-message">
+        Votre compte a été créé, veuillez vous connecter maintenant :
     </div>
-</form>
-<a (click)="registration()"><button>Registration</button></a>
+<div class="form-content">
+    <form (submit)="submit($event)" class="login-form">
+        <div class="form-group">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" id="username" placeholder="Entrez votre identifiant" class="form-input" />
+        </div>
+        <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" placeholder="Entrez votre mot de passe" class="form-input" />
+        </div>
+        <button type="submit" class="btn submit-btn">Login</button>
+        <a (click)="registration()" class="registration-link">
+            <button type="button" class="btn registration-btn">S'inscrire</button>
+        </a>
+    </form>
 
-<div *ngIf="authentificationDenied">
-    Identifiant ou Mot de passe invalide
+    <div *ngIf="authentificationDenied" class="error-message">
+        Identifiant ou mot de passe invalide
+    </div>
 </div>
-  

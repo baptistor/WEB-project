@@ -11,7 +11,8 @@ import { AssociationsListComponent } from './associations-list/associations-list
 import { AssociationItemComponent } from './association-item/association-item.component';
 import { DeleteAssociationComponent } from './delete-association/delete-association.component';
 import { CreateAssociationComponent } from './create-association/create-association.component';
-import { AssociationModifyMemberComponent } from './association-modify-member/association-modify-member.component';
+import { ModifyAssociationComponent } from './modify-association/modify-association.component';
+import { CreateMinuteComponent } from './create-minute/create-minute.component';
 
 export const routes: Routes = [
   {path: 'login/:from', component: LoginComponent,canActivate: [notAuthGuard]},
@@ -26,7 +27,8 @@ export const routes: Routes = [
   {path: 'delete-user', component: DeleteUserComponent,canActivate: [authGuard]},
   {path: 'delete-association/:id', component: DeleteAssociationComponent,canActivate: [authGuard]},
   {path: 'create-association', component: CreateAssociationComponent,canActivate: [authGuard]},
-  {path: 'associations/:id/modify-members', component: AssociationModifyMemberComponent,canActivate: [authGuard]},
+  {path: 'associations/:id/modify-association', component: ModifyAssociationComponent,canActivate: [authGuard]},
+  {path: 'associations/:id/create-minute', component: CreateMinuteComponent,canActivate: [authGuard]},
   {path: '', redirectTo:'login', pathMatch:'full'},
   {path: '**', component: LoginComponent,canActivate: [notAuthGuard]},
 ];

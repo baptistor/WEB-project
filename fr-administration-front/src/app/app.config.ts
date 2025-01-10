@@ -6,6 +6,5 @@ import { provideHttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenHttpInterceptor } from './interceptors/token.interceptor'
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(), provideHttpClient(), {provide: HTTP_INTERCEPTORS,useClass: TokenHttpInterceptor,multi: true,},
-    ]
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(), provideHttpClient(), {provide: HTTP_INTERCEPTORS,useClass: TokenHttpInterceptor,multi: true,},]
 };

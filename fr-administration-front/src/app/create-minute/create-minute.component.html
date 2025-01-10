@@ -1,0 +1,55 @@
+<app-nav></app-nav>
+<div class="prems"*ngIf="isOk;">
+    <h2>Create a minutes for  {{nameAsso}}:</h2>
+    <h3>Describe the minutes</h3>
+    <mat-form-field appearance="fill" class="content">
+        <mat-label>Content of the minutes</mat-label>
+        <textarea
+          matInput
+          placeholder="Ex. We decided the new budget ... "
+          [(ngModel)]="content">
+        </textarea>
+      </mat-form-field>
+    
+    <h3>Select the date of the minutes</h3>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Date of the minutes</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        (dateChange)="onDateChange($event)"
+        placeholder="Choose a date"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
+
+    <h3>Select voters of the minutes</h3>
+    <mat-form-field appearance="fill">
+      <mat-label *ngIf="!selectedUser.length">Members available</mat-label>
+      <mat-label *ngIf="selectedUser.length">Members selected</mat-label>
+      <mat-select [(value)]="selectedUser" multiple>
+        <mat-option *ngFor="let user of availableUser" [value]="user">
+          {{ user.lastname }} {{ user.firstname }} 
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <h3 *ngIf="selectedUser.length">Voters in the minutes</h3>
+    <div *ngFor="let user of selectedUser" class="user-display-container">
+      <mat-card class="user-card">
+        <mat-card-title>{{ user.lastname }} {{ user.firstname }}</mat-card-title>
+      </mat-card>
+    </div>
+    
+
+    <div>
+        <a (click)="create()"><button *ngIf="content && dateMinute">Créer l'association</button></a>
+    </div>   
+</div>
+  
+  
+  
+  

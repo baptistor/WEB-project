@@ -1,31 +1,44 @@
 <app-nav></app-nav>
-<div *ngIf="association">
-    <h2>{{association.name}}</h2>
-    <ul>
-        <li>Id : {{ association.id }}</li>
-        <li>Nombre de membres : {{association.members.length}}</li>
-    </ul>
 
-    <h2 *ngIf="association.members.length">Membres de l'association : </h2>
-        <ul>
-            <li *ngFor="let member of association.members">
-            <span class="nom">{{member.name}} {{member.firstname}} / </span>
-            <span class="age">Age : {{member.age}} ans </span>
-            <span class="role" *ngIf="member.role?.length"> / Role : {{ member.role }}</span>
-            </li>
-        </ul>
+<div *ngIf="association" class="association-container">
+    <h2 class="association-name">{{association.name}}</h2>
+    <div class="association-info">
+        <p><strong>Id :</strong> <span>{{ association.id }}</span></p>
+        <p><strong>Nombre de membres :</strong> <span>{{association.members.length}}</span></p>
+    </div>
+
+    <h3 *ngIf="association.members.length" class="members-title">Membres de l'association : </h3>
+    <div class="members-list">
+        <div *ngFor="let member of association.members" class="member-item">
+            <div class="member-name">
+                <strong><a [routerLink]="['/profile', member.id]">{{member.firstname}} {{member.name}}</a></strong>
+            </div>
+            <div class="member-details">
+                <p><strong>Age :</strong> {{member.age}} ans</p>
+                <p *ngIf="member.role?.length"><strong>Rôle :</strong> {{member.role}}</p>
+            </div>
+        </div>
+    </div>    
 </div>
 
-<div *ngIf="minute.length>0">
-    <h2>Minutes :</h2>
-        <ul>
-            <li *ngFor="let m of minute">
-            <span class="nom">Contenu  : {{m.content}} </span>
-            <span class="age">Date : {{m.date}} </span>
-            <!-- <span class="role" *ngIf="member.role?.length"> / Role : {{ member.role }}</span> -->
-            </li>
-        </ul>
+<div *ngIf="minute.length > 0" class="minutes-container">
+    <h2 class="minutes-title">Minutes :</h2>
+    <div class="minutes-list">
+        <div *ngFor="let m of minute" class="minute-item">
+            <div class="minute-content">
+                <p><strong>Contenu :</strong> {{m.content}}</p>
+                <p><strong>Date :</strong> {{m.date}}</p>
+            </div>
+            <h4>Voters :</h4>
+            <ul class="voters-list">
+                <li *ngFor="let voter of m.voters" class="voter-item">{{voter.firstname}} {{voter.lastname}}</li>
+            </ul>
+        </div>
+    </div>
 </div>
 
-<a *ngIf="userPresident" (click)="delete()"><button>Delete Association</button></a>
-<a *ngIf="userPresident" (click)="modifyMembers()"><button>Modify Members</button></a>
+<div class="buttons-container">
+    <a *ngIf="userPresident" (click)="delete()"><button class="btn delete">Delete Association</button></a>
+    <a *ngIf="userPresident" (click)="modifyAssociation()"><button class="btn modify">Modify Association</button></a>
+    <a *ngIf="userPresident" (click)="createMinute()"><button class="btn create">Create a Minute</button></a>
+</div>

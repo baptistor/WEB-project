@@ -1,19 +1,120 @@
-a {
-    text-decoration: none; /* Supprime le soulignement */
-    color: #00f7ff; /* Couleur du texte par défaut */
-    font-size: 16px; /* Taille du texte */
-    font-weight: bold; /* Met le lien en gras */
-    transition: color 0.3s, transform 0.2s; /* Animation pour la couleur et le mouvement */
-  }
-  
-  a:hover {
-    color: #357ab8; /* Couleur au survol */
-    transform: scale(1.05); /* Légère mise en avant au survol */
-  }
-  
-  a:active {
-    color: #000000; /* Couleur lors du clic */
-    transform: scale(0.95); /* Réduction légère pour un effet de clic */
-  }
-  
-  
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f9fafb;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.profile-container {
+  background-color: #ffffff;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.profile-info {
+  margin-bottom: 30px;
+}
+
+.profile-item {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.profile-item strong {
+  color: #16a085;
+}
+
+.association-info {
+  margin-bottom: 30px;
+}
+
+.association-title {
+  font-size: 22px;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.association-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.association-item {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.association-link {
+  text-decoration: none;
+  color: #2ecc71;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.association-link:hover {
+  color: #27ae60;
+}
+
+.association-name {
+  color: #2980b9;
+}
+
+.association-role {
+  font-style: italic;
+}
+
+.no-association {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 18px;
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.btn {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modify-btn {
+  background-color: #f39c12;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.modify-btn:hover {
+  background-color: #e67e22;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}

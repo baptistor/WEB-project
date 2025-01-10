@@ -15,12 +15,12 @@ import { Association } from '../associations-list/associations-list.component';
 import { forkJoin } from 'rxjs';
 
 @Component({
-  selector: 'app-association-modify-member',
+  selector: 'app-modify-association',
   imports: [ NavComponent, CommonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule,MatOptionModule, FormsModule],
-  templateUrl: './association-modify-member.component.html',
-  styleUrl: './association-modify-member.component.css'
+  templateUrl: './modify-association.component.html',
+  styleUrl: './modify-association.component.css'
 })
-export class AssociationModifyMemberComponent {
+export class ModifyAssociationComponent {
     idUser: number;
     idAsso:number =0;
     assoInfo: any;
@@ -52,6 +52,16 @@ export class AssociationModifyMemberComponent {
           this.api.get({ endpoint: '/users' }).subscribe({
             next: (response) => {
               this.availableUser = response.body;
+              let i =0;
+              while(i<this.availableUser.length){
+                if(this.availableUser[i].id === this.idUser){
+                  break;
+                }
+                else{
+                  i++
+                }
+              }
+              this.availableUser.splice(i,1)
     
               // Remplir selectedUser avec les utilisateurs de availableUser par référence
               this.selectedUser = this.assoInfo.members.map((member : any) =>

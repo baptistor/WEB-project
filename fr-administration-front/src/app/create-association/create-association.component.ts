@@ -41,6 +41,7 @@ export class CreateAssociationComponent {
       this.api.get({ endpoint: '/users' }).subscribe({
         next: (response) => {
           this.availableUser = response.body;
+          console.log(this.availableUser)
           let i=0
           while(i<this.availableUser.length){
             if(this.availableUser[i].id === this.idUser){
@@ -50,7 +51,7 @@ export class CreateAssociationComponent {
               i++
             }
           }
-          this.availableUser.splice(i)
+          this.availableUser.splice(i,1)
           console.log(this.availableUser);
           this.isOk =true
         },
