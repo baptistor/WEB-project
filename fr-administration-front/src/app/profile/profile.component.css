@@ -1,0 +1,19 @@
+a {
+    text-decoration: none; /* Supprime le soulignement */
+    color: #00f7ff; /* Couleur du texte par défaut */
+    font-size: 16px; /* Taille du texte */
+    font-weight: bold; /* Met le lien en gras */
+    transition: color 0.3s, transform 0.2s; /* Animation pour la couleur et le mouvement */
+  }
+  
+  a:hover {
+    color: #357ab8; /* Couleur au survol */
+    transform: scale(1.05); /* Légère mise en avant au survol */
+  }
+  
+  a:active {
+    color: #000000; /* Couleur lors du clic */
+    transform: scale(0.95); /* Réduction légère pour un effet de clic */
+  }
+  
+  

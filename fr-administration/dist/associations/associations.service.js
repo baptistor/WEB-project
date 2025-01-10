@@ -20,7 +20,6 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const associations_dto_1 = require("./associations.dto");
 const associations_member_1 = require("./associations.member");
-const roles_entity_1 = require("../roles/roles.entity");
 const minute_entity_1 = require("../minute/minute.entity");
 const roles_service_1 = require("../roles/roles.service");
 let AssociationsService = class AssociationsService {
@@ -31,14 +30,13 @@ let AssociationsService = class AssociationsService {
         this.roleServ = roleServ;
     }
     async toAssociationDTO(association) {
-        const members = (association.users ?? []).map(user => {
+        const members = await Promise.all((association.users ?? []).map(async (user) => {
             let role = user.roles?.find(role => role.association?.id === association.id);
             if (!role) {
-                const newRole = new roles_entity_1.Role(user.id, association.id, "member");
-                role = newRole;
+                role = await this.roleServ.create('Membre', user.id, association.id);
             }
             return new associations_member_1.Member(user.id, user.lastname, user.firstname, user.age, role.name);
-        });
+        }));
         return new associations_dto_1.AssociationDTO(association.id, association.name, members);
     }
     async getAll() {
@@ -59,10 +57,7 @@ let AssociationsService = class AssociationsService {
             users
         });
         const asso = await this.repository.save(newAssociation);
-        this.roleServ.create('Président', idUsers[0], asso.id);
-        for (let i = 1; i < idUsers.length; i++) {
-            this.roleServ.create('Membre', idUsers[i], asso.id);
-        }
+        await this.roleServ.create('Président', idUsers[0], asso.id);
         return await this.getById(asso.id);
     }
     async update(id, idUsers, name) {
@@ -70,18 +65,37 @@ let AssociationsService = class AssociationsService {
         if (!s) {
             return undefined;
         }
+        let idPres = 0;
         if (idUsers !== undefined) {
             const users = await this.userRepository.find({ where: { id: (0, typeorm_2.In)(idUsers) } });
             if (users.length !== idUsers.length) {
                 return undefined;
+            }
+            let index = 0;
+            while (index < s.roles.length) {
+                if (s.roles[index].name === 'Président') {
+                    idPres = s.roles[index].idUser;
+                    break;
+                }
+                else {
+                    index++;
+                }
+            }
+            if (index === s.roles.length) {
+                console.log("PAS DE PRESIDENT DANS L ASSO = PROBLEME");
+                throw new common_1.HttpException(`PAS DE PRESIDENT DANS L ASSO = PROBLEME`, common_1.HttpStatus.NOT_FOUND);
+            }
+            for (let i = 0; i < s.roles.length; i++) {
+                await this.roleServ.delete(s.roles[i].idUser, id);
             }
             s.users = users;
         }
         if (name !== undefined) {
             s.name = name;
         }
-        this.repository.save(s);
-        return await this.toAssociationDTO(s);
+        await this.repository.save(s);
+        await this.roleServ.create('Président', +idPres, id);
+        return await this.getById(s.id);
     }
     async delete(id) {
         const s = await this.repository.findOne({ where: { id: (0, typeorm_2.Equal)(id) } });

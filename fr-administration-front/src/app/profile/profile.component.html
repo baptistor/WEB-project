@@ -12,8 +12,10 @@
     <h2 *ngIf="!user.roles?.length">{{ user.firstname }} {{ user.lastname }} n'est membre d'aucune association</h2>
         <ul *ngIf="user?.roles?.length">
             <li *ngFor="let role of user.roles; let i = index">
-            <span class="nom asso">{{ Assoname[i] }}</span>
-            <span class="nom role" *ngIf="role.name?.length"> : {{ role.name }}</span>
+                <a [href]="'http://localhost:4200/associations/' + role.idAssociation">                    
+                    <span class="nom asso">{{ Assoname[i] }}</span>
+                    <span class="nom role" *ngIf="role.name?.length"> : {{ role.name }}</span>
+                </a>
             </li>
         </ul>
       

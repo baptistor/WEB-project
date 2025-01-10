@@ -29,7 +29,7 @@ export class AssociationItemComponent {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.id = Number(params.get('id')); // ID de l'asso dans l url
+      this.id = Number(params.get('id'));
 
       this.loadAssociation(this.id);
       this.loadMinutes(this.id);
@@ -70,4 +70,9 @@ export class AssociationItemComponent {
     delete() : void {
       this.router.navigateByUrl(`/delete-association/${this.id}`);
     }
+
+    modifyMembers() : void {
+      this.router.navigateByUrl(`/associations/${this.id}/modify-members`);
+    }
+
 }
