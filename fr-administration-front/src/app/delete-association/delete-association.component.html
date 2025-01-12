@@ -1,11 +1,17 @@
-<form (submit)="submit($event)">
-    <label>Old password* :</label>
-    <input type="password" id="pswd" required>
-    <br>
+<div class="center-container">
+  <form (submit)="submit($event)" class="form-container">
+    <div class="form-group">
+      <label for="pswd" class="form-label">Old password:</label>
+      <input type="password" id="pswd" class="form-input" required />
+    </div>
 
-    <button type="submit">Delete Association : {{idAsso}}</button>
-    <a (click)="cancel()"><button>Cancel</button></a>
-    <div *ngIf ="error_pswd">
+    <button type="submit" class="btn danger-btn">Delete Association: {{idAsso}}</button>
+    <a (click)="cancel()" class="cancel-link">
+      <button type="button" class="btn cancel-btn">Cancel</button>
+    </a>
+
+    <div *ngIf="error_pswd" class="error-message">
       Wrong password
     </div>
   </form>
+</div>

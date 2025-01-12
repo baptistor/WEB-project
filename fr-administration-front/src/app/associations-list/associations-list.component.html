@@ -1,51 +1,47 @@
 <app-nav></app-nav>
-<form [formGroup]="associationsGroup">
-  <label>User search by id* : </label>
-  <input type="number" id="user-id" formControlName="controlAssociations">
-  <br>
-</form>
-<div *ngIf ="error_id">
-Wrong id
+<div class="center-container">
+  <form [formGroup]="associationsGroup" class="search-form">
+    <label for="user-id" class="form-label">User search by ID:</label>
+    <input type="number" id="user-id" formControlName="controlAssociations" class="form-input" placeholder="Enter Association ID">
+  </form>
+  <div *ngIf="error_id" class="error-message">
+    Wrong ID
+  </div>
+  <div class="create-button">
+    <button (click)="createAssociation()" class="btn create-btn">Créer une association</button>
+  </div>
+  <div class="table-container">
+    <h1 class="table-title">Tableau des associations</h1>
+    <table mat-table [dataSource]="dataSource" class="modern-table">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Id</th>
+        <td mat-cell *matCellDef="let asso">{{ asso.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nom</th>
+        <td mat-cell *matCellDef="let asso">{{ asso.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="members">
+        <th mat-header-cell *matHeaderCellDef>Membres</th>
+        <td mat-cell *matCellDef="let asso">
+          <ul *ngIf="asso.members?.length; else noMembers">
+            <li *ngFor="let member of asso.members" class="member-item">
+              <span class="member-name">{{ member.name }}</span>
+              <span class="member-role" *ngIf="member.role?.length"> : {{ member.role }}</span>
+            </li>
+          </ul>
+          <ng-template #noMembers>
+            <p class="no-members">No members available</p>
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <!-- Table Rows -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let asso; columns: displayedColumns" class="clickable-row" 
+          [routerLink]="['/associations', asso.id]"></tr>
+    </table>
+  </div>
 </div>
-<a (click)="createAssociation()"><button>Créer une association</button></a>
-<div class="table-container">
-  <h1>Tableau des associations</h1>
-  <table mat-table [dataSource]="dataSource" class="modern-table">
-
-    <!-- Id Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef>Id</th>
-      <td mat-cell *matCellDef="let asso">{{ asso.id }}</td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let asso">{{ asso.name }}</td>
-    </ng-container>
-
-    <!-- Members Column -->
-    <ng-container matColumnDef="members">
-      <th mat-header-cell *matHeaderCellDef>Members</th>
-      <td mat-cell *matCellDef="let asso">
-        <ul *ngIf="asso.members?.length; else noMembers">
-          <li *ngFor="let member of asso.members">
-            <span class="member-name">{{ member.name }}</span> 
-            <span class="member-role" *ngIf="member.role?.length"> : {{ member.role }}</span>
-          </li>
-        </ul>
-        <ng-template #noMembers>
-          <li>No members available</li>
-        </ng-template>
-      </td>
-    </ng-container>
-
-    <!-- Table Rows -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let asso; columns: displayedColumns" class="clickable-row" 
-    [routerLink]="['/associations', asso.id]">> </tr>
-  </table>
-</div>
-
-  
-      

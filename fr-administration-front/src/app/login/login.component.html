@@ -1,7 +1,8 @@
-    <div *ngIf="isFromRegistration" class="registration-message">
-        Votre compte a été créé, veuillez vous connecter maintenant :
-    </div>
-<div class="form-content">
+<div *ngIf="isFromRegistration" class="registration-message">
+    Votre compte a été créé, veuillez vous connecter maintenant :
+</div>
+
+<div class="center-container">
     <form (submit)="submit($event)" class="login-form">
         <div class="form-group">
             <label for="username" class="form-label">Username</label>

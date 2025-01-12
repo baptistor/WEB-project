@@ -1,0 +1,94 @@
+/* Conteneur principal */
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f6f9;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Conteneur du formulaire */
+  .form-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  /* Groupes de formulaire */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #34495e;
+    margin-bottom: 8px;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-input:focus {
+    border-color: #3498db;
+    outline: none;
+  }
+  
+  /* Boutons */
+  .btn {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .danger-btn {
+    background-color: #e74c3c;
+    color: white;
+  }
+  
+  .danger-btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+  }
+  
+  .cancel-btn {
+    background-color: #95a5a6;
+    color: white;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #7f8c8d;
+    transform: translateY(-2px);
+  }
+  
+  .cancel-link {
+    text-decoration: none;
+    margin-top: 10px;
+    display: inline-block;
+  }
+  
+  /* Message d'erreur */
+  .error-message {
+    font-size: 14px;
+    color: #e74c3c;
+    margin-top: 15px;
+  }
+  

@@ -1,37 +1,38 @@
 <app-nav></app-nav>
-<form [formGroup]="usersGroup">
-    <label>User search by id* : </label>
-    <input type="number" id="user-id" formControlName="controlUsers">
-    <br>
-</form>
-<div *ngIf ="error_id">
-Wrong id
-</div>
-<div class="table-container">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 50%; margin: 0 auto;">
-        <!-- Columns Definitions -->
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> id </th>
-            <td mat-cell *matCellDef="let user"> {{user.id}} </td>
-        </ng-container>
+<div class="center-container">
+    <form [formGroup]="usersGroup" class="search-form">
+        <label for="user-id" class="form-label">User search by ID:</label>
+        <input type="number" id="user-id" formControlName="controlUsers" class="form-input" placeholder="Enter User ID">
+    </form>
+    <div *ngIf="error_id" class="error-message">
+        Wrong ID
+    </div>
+    <div class="table-container">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-table">
+            <!-- Columns Definitions -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="lastname">
-            <th mat-header-cell *matHeaderCellDef> Lastname </th>
-            <td mat-cell *matCellDef="let user"> {{user.lastname}} </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="firstname">
-            <th mat-header-cell *matHeaderCellDef> Firstname </th>
-            <td mat-cell *matCellDef="let user"> {{user.firstname}} </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="age">
-            <th mat-header-cell *matHeaderCellDef> Age </th>
-            <td mat-cell *matCellDef="let user"> {{user.age}} </td>
-        </ng-container>
+            <ng-container matColumnDef="lastname">
+                <th mat-header-cell *matHeaderCellDef> Lastname </th>
+                <td mat-cell *matCellDef="let user"> {{user.lastname}} </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="firstname">
+                <th mat-header-cell *matHeaderCellDef> Firstname </th>
+                <td mat-cell *matCellDef="let user"> {{user.firstname}} </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="age">
+                <th mat-header-cell *matHeaderCellDef> Age </th>
+                <td mat-cell *matCellDef="let user"> {{user.age}} </td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let user; columns: displayedColumns;" class="clickable-row" 
-            [routerLink]="['/profile', user.id]"></tr>
-    </table>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let user; columns: displayedColumns;" class="clickable-row" 
+                [routerLink]="['/profile', user.id]"></tr>
+        </table>
+    </div>
 </div>
