@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Observable, lastValueFrom } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { R } from '@angular/cdk/keycodes';
 
 
 @Injectable({
@@ -69,6 +68,7 @@ export class ApiHelperService {
     data?: object;
     queryParams?: any;
   }): Observable<any> {
+    console.log('ApiHelperService request triggered:', { method, endpoint });
     const methodWanted = method.toLowerCase();
 
     const url = this.base_url + endpoint;
