@@ -32,7 +32,6 @@ export class DeleteUserComponent {
 
     this.validate_pswd(this.id, password, (isValid) => {
       if (isValid) {
-  
         this.api.delete({ endpoint: `/users/${this.id}`}).subscribe({ 
           next : (response) => {
           console.log('Réponse reçue :',response);

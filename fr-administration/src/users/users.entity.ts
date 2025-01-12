@@ -15,7 +15,7 @@ export class User {
     @Column()
     age: number;
 
-    @Column()
+    @Column({ select: false })
     password: string;
 
     @OneToMany(() => Role, role => role.user)

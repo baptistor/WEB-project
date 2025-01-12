@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { User } from './users.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Equal, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { Role } from 'src/roles/roles.entity';
+import { RolesService } from 'src/roles/roles.service';
+import { AssociationsService } from 'src/associations/associations.service';
 
 @Injectable()
 export class UsersService {
@@ -11,9 +13,12 @@ export class UsersService {
             @InjectRepository(User)
             private repository: Repository<User>,
             @InjectRepository(Role) 
-            private rolesRepository: Repository<Role>
+            private rolesRepository: Repository<Role>,
+            @Inject(forwardRef(() => RolesService))
+            private rolesServ : RolesService,
+            private assoServ : AssociationsService
         ) {}
-    async create(lastname : string, firstname : string, age:number, password:string): Promise<User>{
+    async create(firstname : string, lastname : string, age:number, password:string): Promise<User>{
         const saltOrRounds = 10;
         const hash = await bcrypt.hash(password, saltOrRounds);
         const newUser = await this.repository.create({
@@ -58,6 +63,13 @@ export class UsersService {
     }
     async delete(id:number): Promise<User>{
         const u = await this.repository.findOne({where: {id: Equal(id)}});
+        const roles = await this.getAllRolesById(id);
+        for(let i:number = 0 ; i<roles.length;i++){
+            await this.rolesServ.delete(id, roles[i].idAssociation);
+            if (roles[i].name==='Président'){
+                await this.assoServ.delete(roles[i].idAssociation)
+            }
+        }
         if(!u){
             return undefined; 
         }

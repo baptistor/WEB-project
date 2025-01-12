@@ -1,5 +1,5 @@
 # WEB-project
-Ce projet est une application web full-stack utilisant **Angular** pour le front-end et **NestJS** pour le back-end. Cette application web porte sur la numérisation de la gestion d'associations par des utilisateurs. Elle permet entre autre à des utilisateurs de se connecter ou de s'inscrire, de gérer des rôles dans des associations, ou encore d'ajouter des procès verbaux.
+Ce projet est une application web full-stack utilisant **Angular** pour le front-end et **NestJS** pour le back-end. Cette application web porte sur la numérisation de la gestion d'associations par des utilisateurs. Elle permet entre autre à des utilisateurs de se connecter ou de s'inscrire, de gérer des rôles dans des associations, ou encore d'ajouter des procès verbaux (minutes).
 
 ## Installation et utilisation du projet
 Dans cette section, nous verrons comment récupérer et lancer l'application web

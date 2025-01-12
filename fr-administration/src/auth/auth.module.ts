@@ -7,9 +7,11 @@ import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './jwt.strategy';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from 'src/users/users.entity';
 
 @Module({
-  imports: [UsersModule, 
+  imports: [TypeOrmModule.forFeature([User]), 
     PassportModule,
     JwtModule.register({secret: jwtConstants.secret,
       signOptions: {expiresIn: '60s'}

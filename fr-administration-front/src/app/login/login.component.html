@@ -14,11 +14,10 @@
         </div>
         <button type="submit" class="btn submit-btn">Login</button>
         <a (click)="registration()" class="registration-link">
-            <button type="button" class="btn registration-btn">S'inscrire</button>
+            <button type="button" class="btn registration-btn">Register</button>
         </a>
     </form>
 
     <div *ngIf="authentificationDenied" class="error-message">
-        Identifiant ou mot de passe invalide
-    </div>
+        Invalid login or password    </div>
 </div>
