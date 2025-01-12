@@ -1,5 +1,6 @@
 mydatabase.db
 mydatabase.db.old
+myoldDatabase.db
 
 # compiled output
 /dist
