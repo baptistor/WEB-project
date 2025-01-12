@@ -1,15 +1,16 @@
-    <div *ngIf="isFromRegistration" class="registration-message">
-        Votre compte a été créé, veuillez vous connecter maintenant :
-    </div>
-<div class="form-content">
+<div *ngIf="isFromRegistration" class="registration-message"> Account created, username : {{idCreatedUser}}</div>
+
+<div class="center-container">
     <form (submit)="submit($event)" class="login-form">
         <div class="form-group">
             <label for="username" class="form-label">Username</label>
-            <input type="text" id="username" placeholder="Entrez votre identifiant" class="form-input" />
+            <input *ngIf="!isFromRegistration"type="text" id="username" placeholder="Enter your username" class="form-input" />
+            <input *ngIf="isFromRegistration" type="text" id="username" placeholder="Enter your username" class="form-input" value="{{idCreatedUser}}" />
+
         </div>
         <div class="form-group">
             <label for="password" class="form-label">Password</label>
-            <input type="password" id="password" placeholder="Entrez votre mot de passe" class="form-input" />
+            <input type="password" id="password" placeholder="Entrez your password" class="form-input" />
         </div>
         <button type="submit" class="btn submit-btn">Login</button>
         <a (click)="registration()" class="registration-link">

@@ -1,8 +1,8 @@
 <app-nav></app-nav>
 <div class="prems"*ngIf="isOk;">
-    <h2>Modification d'une Association :</h2>
+    <h2>Modification of Association  :</h2>
     <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Nom de l'association</mat-label>
+        <mat-label>Name of Association</mat-label>
         <input
         matInput
         placeholder="Ex. ESIR"
@@ -11,9 +11,9 @@
     </mat-form-field>
     
 
-    <h3>Utilisateurs disponibles :</h3>
+    <h3>Users Available :</h3>
     <mat-form-field appearance="fill">
-      <mat-label>Sélectionnez ou désélectionnez des utilisateurs</mat-label>
+      <mat-label>Select users</mat-label>
       <mat-select [(value)]="selectedUser" multiple>
         <mat-option *ngFor="let user of availableUser" [value]="user">
           {{ user.lastname }} {{ user.firstname }}
@@ -21,10 +21,10 @@
       </mat-select>
     </mat-form-field>
   
-    <h3 *ngIf="selectedUser.length">Utilisateurs sélectionnés et leurs rôles :</h3>
+    <h3 *ngIf="selectedUser.length">Users Selected and their Roles</h3>
     <div *ngFor="let user of selectedUser" class="user-role-container">
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Rôle de {{ user.lastname }} {{ user.firstname }}</mat-label>
+        <mat-label>Role of {{ user.lastname }} {{ user.firstname }}</mat-label>
         <input
           matInput
           placeholder="Ex. Membre"
