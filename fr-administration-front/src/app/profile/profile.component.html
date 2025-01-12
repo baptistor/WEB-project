@@ -1,17 +1,17 @@
 <app-nav></app-nav>
 
 <div *ngIf="user" class="profile-container">
-    <h2 class="profile-title">Profil de {{ user.firstname }} {{ user.lastname }}</h2>
+    <h2 class="profile-title">Profile of {{ user.firstname }} {{ user.lastname }}</h2>
 
     <div class="profile-info">
         <div class="profile-item">
             <strong>ID :</strong> <span>{{ user.id }}</span>
         </div>
         <div class="profile-item">
-            <strong>Nom :</strong> <span>{{ user.lastname }}</span>
+            <strong>Lastname :</strong> <span>{{ user.lastname }}</span>
         </div>
         <div class="profile-item">
-            <strong>Prénom :</strong> <span>{{ user.firstname }}</span>
+            <strong>Firstname :</strong> <span>{{ user.firstname }}</span>
         </div>
         <div class="profile-item">
             <strong>Age :</strong> <span>{{ user.age }}</span>
@@ -19,7 +19,7 @@
     </div>
 
     <div *ngIf="user.roles?.length" class="association-info">
-        <h3 class="association-title">{{ user.firstname }} {{ user.lastname }} fait partie des associations suivantes :</h3>
+        <h3 class="association-title">{{ user.firstname }} {{ user.lastname }} is a member of the following associations:</h3>
         <ul class="association-list">
             <li *ngFor="let role of user.roles; let i = index" class="association-item">
                 <a [href]="'http://localhost:4200/associations/' + role.idAssociation" class="association-link">
@@ -31,15 +31,15 @@
     </div>
 
     <div *ngIf="!user.roles?.length" class="no-association">
-        <p>{{ user.firstname }} {{ user.lastname }} n'est membre d'aucune association</p>
+        <p>{{ user.firstname }} {{ user.lastname }} is not a member of any association</p>
     </div>
 
     <div class="profile-actions">
         <a *ngIf="userOnHisProfile" (click)="modify()">
-            <button class="btn modify-btn">Modifier le profil</button>
+            <button class="btn modify-btn">Modify Profile</button>
         </a>
         <a *ngIf="userOnHisProfile" (click)="delete()">
-            <button class="btn delete-btn">Supprimer le compte</button>
+            <button class="btn delete-btn">Delete Account</button>
         </a>
     </div>
 </div>

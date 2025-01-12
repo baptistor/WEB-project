@@ -4,10 +4,10 @@
     <h2 class="association-name">{{association.name}}</h2>
     <div class="association-info">
         <p><strong>Id :</strong> <span>{{ association.id }}</span></p>
-        <p><strong>Nombre de membres :</strong> <span>{{association.members.length}}</span></p>
+        <p><strong>Number of members :</strong> <span>{{association.members.length}}</span></p>
     </div>
 
-    <h3 *ngIf="association.members.length" class="members-title">Membres de l'association : </h3>
+    <h3 *ngIf="association.members.length" class="members-title">Members of the association: </h3>
     <div class="members-list">
         <div *ngFor="let member of association.members" class="member-item">
             <div class="member-name">
@@ -15,7 +15,7 @@
             </div>
             <div class="member-details">
                 <p><strong>Age :</strong> {{member.age}} ans</p>
-                <p *ngIf="member.role?.length"><strong>Rôle :</strong> {{member.role}}</p>
+                <p *ngIf="member.role?.length"><strong>Role :</strong> {{member.role}}</p>
             </div>
         </div>
     </div>    
@@ -26,7 +26,7 @@
     <div class="minutes-list">
         <div *ngFor="let m of minute" class="minute-item">
             <div class="minute-content">
-                <p><strong>Contenu :</strong> {{m.content}}</p>
+                <p><strong>Content :</strong> {{m.content}}</p>
                 <p><strong>Date :</strong> {{m.date}}</p>
             </div>
             <h4>Voters :</h4>

@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent {
   authentificationDenied = false;
   isFromRegistration = false;
+  idCreatedUser : any;
   constructor(
     private api: ApiHelperService,  
     private tokenStorageService: TokenStorageService,
@@ -23,6 +24,15 @@ export class LoginComponent {
   
   ngOnInit(): void{
     this.isFromRegistration = this.route.snapshot.paramMap.get('from') == "registration" ? true : false;
+    this.api.get({ endpoint: '/users' }).subscribe({
+      next: (response) => {
+        this.idCreatedUser = response.body[response.body.length-1].id;
+        console.log("id last user : "+this.idCreatedUser);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
   }
   submit(event?: Event): void {
     if (event) {
