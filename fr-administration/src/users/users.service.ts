@@ -65,10 +65,10 @@ export class UsersService {
         const u = await this.repository.findOne({where: {id: Equal(id)}});
         const roles = await this.getAllRolesById(id);
         for(let i:number = 0 ; i<roles.length;i++){
-            await this.rolesServ.delete(id, roles[i].idAssociation);
             if (roles[i].name==='Président'){
                 await this.assoServ.delete(roles[i].idAssociation)
             }
+            await this.rolesServ.delete(id, roles[i].idAssociation);
         }
         if(!u){
             return undefined; 
