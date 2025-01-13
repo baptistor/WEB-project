@@ -29,7 +29,6 @@
         placeholder="Ex. Member"
         [(ngModel)]="rolesSelectedUser[user.id]"
         #roleInput="ngModel"
-        required
       />
       <mat-error *ngIf="roleInput.invalid && roleInput.touched">
         Ce champ est obligatoire.

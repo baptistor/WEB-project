@@ -70,7 +70,11 @@ export class CreateAssociationComponent {
   
     for (let i = 0; i < this.selectedUser.length; i++) {
       idUsers.push(this.selectedUser[i].id);
-      roles.push(this.rolesSelectedUser[this.selectedUser[i].id]);
+      if(!this.rolesSelectedUser[this.selectedUser[i].id]){
+        roles.push("Member");
+      }else{
+        roles.push(this.rolesSelectedUser[this.selectedUser[i].id]);
+      }
     }
     let name = this.name;
     console.log("name : " + name + " idUsers : " + idUsers + " Roles : " + roles);
